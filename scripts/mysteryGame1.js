@@ -34,5 +34,5 @@ Routes["mainRoute"] = [
 	SetScene.dialog("", "On the night of the twelfth, I realized I had made a terrible mistake; a mistake that would continue to haunt me forever."),
 	SetScene.background("artAssets/lame.png"),
 	SetScene.dialog("", "gahhhh, this story sounds so lame!!"),
-	SetScene.background("thankyou.png")
+	SetScene.background("artAssets/thankyou.png")
 ];
