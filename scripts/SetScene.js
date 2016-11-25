@@ -145,11 +145,19 @@ SetScene.newBGwithMusicClearChar = function(picture, music){
 }
 
 
-//set new music with dialog
+//set new MUSIC with dialog
 SetScene.dialogWithMusic = function(character, dialog, music){
 	return function(){
-		SetScene.dialog(character, dialog);
-		SetScene.playAudio(music);
+		SetScene.dialog(character, dialog)();
+		SetScene.playAudio(music)();
+	}
+}
+
+//set new EFFECT sounds with dialog
+SetScene.dialogWithEffect = function(character, dialog, sound){
+	return function(){
+		SetScene.dialog(character, dialog)();
+		SetScene.playEffect(sound)();
 	}
 }
 
