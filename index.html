@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<title>simple 'visual novel' thingy</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src='scripts/Screen.js'></script>
+<script src='scripts/SetScene.js'></script>
+<script src='scripts/Game.js'></script>
+<script src='scripts/catGame1.js'></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+
+<style>
+#screen{
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+}
+
+#rowDialog{
+	margin: 0 auto;
+	border: #fff 1px dotted;
+}
+
+ul{
+	padding: 0;
+}
+
+#footer{
+	height: 200px;
+}
+
+#title{
+	text-align: center;
+}
+
+p, h2{
+	color: #fff;
+}
+
+h3{
+	font-family: monospace;
+}
+
+a:hover{
+	color: #fff;
+}
+
+body{
+	background-color: #36454f;
+}
+.row{
+	text-align: center;
+}
+.btn-primary{
+	background-color: #0199de;
+	color: #fff;
+	height: 30px;
+	width: 30%;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	margin-top: 15%;
+}
+
+#footer{
+	text-align: center;
+}
+
+#menu{
+	text-align: center;
+	margin-left: 5%;
+	border: #fff solid 1px;
+	border-radius: 5px;
+	width: 300px;
+	
+}
+#menu li{
+	list-style-type: none;
+	color: #fff;
+}
+
+#hidden{
+	display: none;
+}
+
+
+/* prevent mobile */
+@media (max-width: 960px){
+
+#menu, #screen{
+	display: none;
+}
+
+#hidden{
+	border: dotted 1px #fff;
+	text-align: center;
+	color: #fff;
+	display: block;
+}
+
+}
+</style>
+
+<body>
+
+<div class='row'>
+	<div id='title'>
+		<h2> simple 'visual novel' thingy </h2>
+	</div>
+</div>
+
+<div id='hidden'>
+	<h1>sorry, mobile devices not supported!!</h1>
+</div>
+
+<div class='col-lg-3' id='menu'>
+	<p>instructions: after selecting a game, press spacebar to traverse the scenes. </p>
+	<p> to change games after selecting one, please refresh the page! </p>
+	<p>also, when changing text speed: move slider to the left for FASTER text, and right for slower.</p>
+	<h1 style='color: #fff'> choose a game: </h1>
+	<ul>
+		<li id='game1'><a href='#'>mr.cat's neighborhood</a></li>
+		<li id='game2'><a href='#'>mystery game</a></li>
+		<br>
+		<li class='options'><a>option menu</a></li>
+	</ul>
+</div>
+
+<div id='screen'>
+	<div class='row' id='rowScreen'>
+	</div>
+
+	<div class='row' id='rowDialog'>
+	</div>
+</div>
+
+
+<div id='footer'>
+	<p>n.c.h works 2016</p>
+</div>
+
+</body>
+
+<script>
+/**
+* Welcome to my 'visual novel' engine. I guess there could be other things this could be used for too. 
+* It's extremely basic. Please don't expect too much ^_^
+* Instructions: use spacebar to move to the next scene.
+
+/**
+* Make game here ======================================
+*
+**/
+
+//simple utility functions to get only script of selected game when clicked on
+//http://www.javascriptkit.com/javatutors/loadjavascriptcss2.shtml
+function newScriptNode(newFile){
+	
+	var source = document.createElement('script');
+	//source.setAttribute("type", "text/javascript");
+	source.setAttribute("src", newFile);
+	
+	return source;
+
+}
+
+function getGame(oldFile, newFile){
+	var targetElement = "script"; //look at script elements only
+	//var targetAttr = "src"; //since script elements have "src="
+	var allScripts = document.getElementsByTagName(targetElement); //this creates a collection of <script> elements
+	//scripts.length - 1 to account for this script section 
+	for(var i = 0; i < allScripts.length - 1; i++){
+		//if a script exists and the value of attribute "src" contains the file name
+		if(allScripts[i].getAttribute("src").indexOf(oldFile) > -1){
+			var newScript = newScriptNode(newFile);
+			allScripts[i].parentNode.replaceChild(newScript, allScripts[i]);
+			break;
+		}
+	}
+}
+
+
+/** Start game here **/
+//gotta figure out how we can have the option of playing different games on one page
+//I was thinking of dynamically loading the appropriate javascript file for a particular game 
+//when the right link is clicked (and then dynamically removing the current one)
+
+$(document).ready(function(){
+
+Screen.make(900,700); //width, height
+
+/**
+ found an interesting problem. what if i want to name one of my characters Mr.Cat? any string with a period, or any non-alpha-num char
+ will cause problems when using that string as an ID. can u come up with a function maybe that parses the string, strips it of the special
+ char, and makes the ID like MrCat or something like that?
+
+*/
+Screen.menuScreen("artAssets/mrcatsneighborhood.png", "col");
+Screen.setDialogBox("artAssets/dialogBar.png");
+
+
+//mr cats neighborhood
+$('#game1').click(function(){
+	var curGame = document.getElementsByTagName("script")[4].getAttribute("src");
+	if(curGame !== "scripts/CatGame1.js"){
+		getGame(curGame, "scripts/CatGame1.js");
+	}
+});
+
+//mystery game
+$('#game2').click(function(){
+	var curGame = document.getElementsByTagName("script")[4].getAttribute("src");
+	if(curGame !== "scripts/mysteryGame1.js"){
+		getGame(curGame, "scripts/mysteryGame1.js");
+	}
+});
+
+});
+
+
+</script>
+</html>
