@@ -121,7 +121,7 @@ body{
 	<p>instructions: after selecting a game, press spacebar to traverse the scenes. </p>
 	<p> to change games after selecting one, please refresh the page! </p>
 	<p>also, when changing text speed: move slider to the left for FASTER text, and right for slower.</p>
-	<p>known bugs: sometimes when the music is supposed to be changed, volume goes to 0. 
+	<p>bug: sometimes when the music is supposed to be changed, volume goes to 0. 
 	  i.e. for "Mr. Cat's Neighborhood", if you choose the park route first, new music should play. If nothing is heard, try moving the
 		volume slider in the options menu.</p>
 	<h1 style='color: #fff'> choose a game: </h1>
@@ -191,7 +191,7 @@ function getGame(oldFile, newFile){
 /** Start game here **/
 $(document).ready(function(){
 
-if($(window).height() <= 700){
+if($(window).height() <= 800){
 	//console.log($(window).height());
 	$('#menu').removeClass("col-lg-3").addClass("row"); //make the menu a row
 	$('#menu').css({'margin': '0 auto'}); //center it 
