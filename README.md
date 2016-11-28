@@ -10,7 +10,7 @@ see some samples here: https://syncopika.github.io/visual_novel_maker
 Visual novels tend to be a choose-your-own adventure type of game, where th player follows a storyline and occasionally comes across multiple choices which may determine how the game ends. Visual novels appear to be very popular in Japan.
     
 <b>design implementation:</b>    
-I decided to go with three "classes", each with their own .js file. One is called SetScene, which holds mainly functions that pertain to handling scenes, such as outputting dialog, changing background pictures, changing character sprites, and audio stuff. Another "class" is called Game, which takes care of the mechanics, such as route branching, setting up characters and scene progression. Lastly, there is the Screen "class", which is responsible for creating and maintaining the various screens I have layered.   <br>
+I decided to go with three "classes", each with their own .js file. One is called SetScene, which holds mainly functions that pertain to handling scenes, such as outputting dialog, changing background pictures, changing character sprites, and audio stuff. Another "class" is called Game, which takes care of the mechanics, such as route branching, setting up characters and scene progression. Lastly, there is the Screen class, which is responsible for creating and maintaining the various screens I have layered.   <br>
 
 In my implementation, I have a number of layered div elements, each with their own responsibility. The "ground" layer is a div with a canvas element (in retrospect, using a canvas may not have been a good idea, because of the CORS thing when testing - but I want to do some testing first to check), which holds the background image for a scene. The next div layer holds the character sprites, and above that is a layer that serves as an "options" page, with sliders to toggle volume and text speed. Lastly is a div layer which serves as the menu screen, and also holds the start button to initiate the game.    
     
@@ -34,3 +34,11 @@ Routes["mainRoute"] = [
     SetScene.showCharacter("hello", "world.png")
 ];    
 ```
+
+##API documentation    
+###Screen
+<hr>
+###Game
+<hr>
+###SetScene
+<hr>
