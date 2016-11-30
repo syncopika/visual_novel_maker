@@ -75,7 +75,7 @@ Routes["route3"] = [...stuff...];
 Routes["example"] = [
     ...dialog, etc...
     Screen.routeScreen("route1", "go to Route 1", "route2", "go to Route 2", "route3", "go to Route 3")
-    ];
+];
 ```
 *Screen.<b>menuScreen</b>(menuBackground, style)*
 
