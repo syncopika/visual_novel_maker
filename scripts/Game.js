@@ -14,11 +14,11 @@ Game.character = function(character, color){
 		Game.characters = {};
 		Game.characters[character] = color; 
 	}else{
-		Game.characters[character] = color; //i.e. game["Nick"] = hexCode for color, game["Patrick"] = hex code for another color...
+		Game.characters[character] = color; 
 	}
 }
 
-//make a progress bar
+//TODO: make a progress bar
 Game.makeProgressBar = function(){
 	//create a div element?
 }
@@ -56,6 +56,7 @@ Game.branch = function(routeName){
 	}
 }
 
+
 Game.nextScene = function(){
 	if(bookmark < Routes[currentRoute].length){
 		Routes[currentRoute][bookmark++]();
@@ -65,9 +66,9 @@ Game.nextScene = function(){
 	}
 }
 
-
 /**
 * initialize the game - i.e. allow traversal through array for each scene
+*
 **/
 //go the next scene on spacebar press down
 function gameStart(){
@@ -81,11 +82,12 @@ function gameStart(){
 	});
 }
 
-//make spacebar prevent default (i.e. scrolling) forever
+//make spacebar prevent the default action (i.e. scrolling)
 $(document).keydown(function(e){
 	e.preventDefault();
 });
 
+//set new background AND music
 function newBGwithMusic(picture, music){
 	SetScene.background(picture);
 	SetScene.playAudio(music);
