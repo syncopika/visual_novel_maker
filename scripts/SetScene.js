@@ -5,6 +5,8 @@
 * functions that pertain to scene creation/setting
 *
 **/
+
+//set new background image
 SetScene.background = function(imgSrcPath){
 	return function(){
 			//we can assume the canvas has been initialized already when
@@ -21,6 +23,7 @@ SetScene.background = function(imgSrcPath){
 		}
 }
 
+//set up dialog
 SetScene.dialog = function(character, dialog){
 
 	var colon = ""; //this adds a colon if a character is specified.
@@ -29,6 +32,7 @@ SetScene.dialog = function(character, dialog){
 		colon = ": ";
 	}
 		
+	//helper function to handle how dialog is shown
 	function typeDialog(index, textColor){
 		//this one is for if the user just wants all the text shown at once. 
 		if(textSpeed == 0){
@@ -52,19 +56,15 @@ SetScene.dialog = function(character, dialog){
 			if(Game.characters !== undefined){
 				color = Game.characters[character];
 			}
-			//apply text animation????
 			$('#rowDialog').empty();
 			//put just the name of character first (if character is specified)
 			$('#rowDialog').append('<h3 id="dialog" style="color: ' + color + ';"' + '>' + character + colon + '</h3>');
+			//then show dialog 
 			typeDialog(0, color);
-			//$('#rowDialog').append('<h3 style = "color: ' + color + ';"' + '>' + character + ": " + dialog + '</h3>');
 	}
 }
 
-SetScene.setDialogSpeed = function(seconds){
-	textSpeed = seconds;
-}
-
+//show character sprite
 SetScene.showCharacter = function(name, characterSrc, direction, animation){
 	return function(){
 		//depending on left or right, give it a specific left or right position
@@ -74,13 +74,13 @@ SetScene.showCharacter = function(name, characterSrc, direction, animation){
 			update = true;
 			//move in from specified direction
 			if(direction === "left"){
-				$('#charScreen').prepend('<img id= ' + name + ' src=' + '"' + characterSrc + '"' + ' width=' + canvas.width/2.5 + 'px height=' + canvas.height/2 +  'px />');
+				$('#charScreen').prepend('<img id= ' + name + ' src=' + '"' + characterSrc + '"' + ' width=' + canvas.width/2.5 + 'px height=' + canvas.height/2 + 'px />');
 				$('#' + name).css({'position': 'absolute', 'bottom': 0, 'left': -180, 'display': 'none'});
 				//add class so we can hide the character when we change scenes
 				$('#' + name).addClass('left');
 				slideIn(name, 100, direction);
 			}else if(direction === "right"){
-				$('#charScreen').prepend('<img id= ' + name + ' src=' + '"' + characterSrc + '"' + ' width=' + canvas.width/2.5 + 'px height=' + canvas.height/2 +  'px />');
+				$('#charScreen').prepend('<img id= ' + name + ' src=' + '"' + characterSrc + '"' + ' width=' + canvas.width/2.5 + 'px height=' + canvas.height/2 + 'px />');
 				//initially place far right
 				$('#' + name).css({'position': 'absolute', 'bottom': 0, 'right': -180, 'display': 'none'});
 				$('#' + name).addClass('right');
@@ -91,17 +91,22 @@ SetScene.showCharacter = function(name, characterSrc, direction, animation){
 			//figure out how to scale characters appropriately depending on the screen's dimensions!!
 			if(direction === "left"){
 				//append an img element to the div layer on top of canvas
-				$('#charScreen').prepend('<img id= ' + name + ' src=' + '"' + characterSrc + '"' + ' width=' + canvas.width/2.5 + 'px height=' + canvas.height/2+  'px />');
+				$('#charScreen').prepend('<img id= ' + name + ' src=' + '"' + characterSrc + '"' + ' width=' + canvas.width/2.5 + 'px height=' + canvas.height/2 + 'px />');
 				$('#' + name).css({'position': 'absolute', 'bottom': 0, 'left': 100});
 				$('#' + name).addClass('left');
 			}else if(direction === "right"){
-				$('#charScreen').prepend('<img id= ' + name + ' src=' + '"' + characterSrc + '"' + ' width=' + canvas.width/2.5 + 'px height=' + canvas.height/2 +  'px />');
+				$('#charScreen').prepend('<img id= ' + name + ' src=' + '"' + characterSrc + '"' + ' width=' + canvas.width/2.5 + 'px height=' + canvas.height/2 + 'px />');
 				$('#' + name).css({'position': 'absolute', 'bottom': 0, 'right': 100});
 				$('#' + name).addClass('right');
 			}
-			//Add an option for CENTER
+			//Add an option for CENTER?
 		}	
 	}
+}
+
+//adjust dialog speed
+SetScene.setDialogSpeed = function(seconds){
+	textSpeed = seconds;
 }
 
 //show character with custom bgm for that character
