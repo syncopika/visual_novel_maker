@@ -98,6 +98,10 @@ Takes one parameter. *seconds* should be an integer value indicating how fast, i
 
 Takes one parameter - a string containing the path to the image you want to set as the background for a scene.
 
+*SetScene.<b>newBGwithMusic</b>(imgSrcPath, music)*
+
+Same as above method, but with the parameter *music* being a string containing the path to a music file. Use this method to set a new background and new music only (no effect on character sprite display).
+
 *SetScene.<b>dialog</b>(character, dialog)*
 
 Takes two parameters. *character* should be a string containing the name of a character, and *dialog* should be a string containing the dialog for the specified character. 
@@ -113,6 +117,10 @@ Takes five parameters. This method is the same as above, except for *music*. *mu
 *SetScene.<b>backgroundClearChar</b>(imgSrcPath)*
 
 Takes one parameter - *imgSrcPath* is a string containing the path to the image you want to set for the background. Use this method if you want to show a new setting/reset the stage (note that this method clears the characters from the screen. If you want to change the background but keep the characters in place, just use SetScene.background()).
+
+*SetScene.<b>newBGwithMusicClearChar</b>(imgSrcPath, music)*
+
+Same as the method above, except this one also allows for the addition of music for a new scene. *music* is a string containing the path to a music file. Use this method to change a background, clear characters, and set new music at the same time. 
 
 *SetScene.<b>changeCharacter</b>(name, characterSrc)*
 
