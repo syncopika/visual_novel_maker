@@ -23,13 +23,13 @@ Make sure in the HTML file you wish to present your game in, in the \<head> sect
 ```    
 You can make your game in a separate .js file, which would need to be placed in the \<head> section too, or within the HTML file itself in a \<script> section.   
 ```
-\\option 1
+//option 1
 <head>
-    <script src='yourGame.js'></script>
+    <script src='yourGame.js'></script> //game script
     ...as well as my three scripts
 </head>
 
-\\option 2
+//option 2
 <head>
     my three scripts go here (setscene, screen, game)
 </head>
@@ -43,9 +43,9 @@ You can make your game in a separate .js file, which would need to be placed in 
     //set up routes
 </script>
 ```
-There are some rules that must be followed when using the tools I've made. One is using the Routes object, which should hold all the possible routes. There must always be a route called "mainRoute", which is where the player starts. Each route is a "property" of a dictionary({}); all the things that happen within a route (i.e. all the dialog, scene changes, etc...) are placed in an array, and this array is the "value" of a route. example:    
+There are some rules that must be followed when using these scripts. One is using the Routes object, which should hold all the possible routes. There must always be a route called "mainRoute", which is where the player starts. Each route is a "property" of a dictionary({}); all the things that happen within a route (i.e. all the dialog, scene changes, etc...) are placed in an array, and this array is the "value" of a route. example:    
 ```
-//Routes is already initialized, so no need to!  
+//The Routes object is already initialized, so no need to!  
 
 Routes["mainRoute"] = [
     SetScene.dialog("", "hello world!"), //don't forget the comma!
@@ -83,6 +83,25 @@ Takes two parameters. *menuBackground* should be a string containing the path to
 
 <hr>
 ###Game
+
+*Game.<b>character</b>(character, color)*
+
+Takes two parameters. *character* should be a string containing the name of a character, and *color* should be a string containing a specified color (i.e. in hex code, so something like '#000' for black). Characters should be set up before setting up routes. 
+
 <hr>
 ###SetScene
+
+*SetScene.<b>background</b>(imgSrcPath)*
+
+Takes one parameter - a string containing the path to the image you want to set as the background for a scene.
+
+*SetScene.<b>dialog</b>(character, dialog)*
+
+Takes two parameters. *character* should be a string containing the name of a character, and *dialog* should be a string containing the dialog for the specified character. 
+
+*SetScene.<b>showCharacter</b>(name, characterSrc, direction, animation)*
+
+Takes four parameters. *name* should be a string with the name of a character and *characterSrc* should be a string with the path to the character sprite. *direction* can be either the strings "left" or "right", indicating the direction from which the character should appear from. *animation* is a boolean (either true or false - not in a string) - true if the character should 'slide' in to position, or false if the character should just appear immediately. 
+
+
 <hr>
