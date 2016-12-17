@@ -91,6 +91,9 @@ Takes two parameters. *character* should be a string containing the name of a ch
 <hr>
 ###SetScene
 
+*SetScene.<b>setDialogSpeed</b>(seconds)*
+Takes one parameter. *seconds* should be an integer value indicating how fast, in miliseconds, the dialog should show. You can set up a default speed with this method.
+
 *SetScene.<b>background</b>(imgSrcPath)*
 
 Takes one parameter - a string containing the path to the image you want to set as the background for a scene.
@@ -103,5 +106,16 @@ Takes two parameters. *character* should be a string containing the name of a ch
 
 Takes four parameters. *name* should be a string with the name of a character and *characterSrc* should be a string with the path to the character sprite. *direction* can be either the strings "left" or "right", indicating the direction from which the character should appear from. *animation* is a boolean (either true or false - not in a string) - true if the character should 'slide' in to position, or false if the character should just appear immediately. 
 
+*SetScene.<b>showCharacterWithBGM</b>(name, characterSrc, direction, animation, music)*
+
+Takes five parameters. This method is the same as above, except for *music*. *music* should be a string containing the path to a particular music file. The specific music file will play upon the showing of the character. Use this method if you want to play a particular character's theme, for example, whenever the character shows up.
+
+*SetScene.<b>backgroundClearChar</b>(imgSrcPath)*
+
+Takes one parameter - *imgSrcPath* is a string containing the path to the image you want to set for the background. Use this method if you want to show a new setting (note that this method clears the characters from the screen. if you want to change the background but keep the characters in place, just use SetScene.background().
+
+*SetScene.<b>changeCharacter</b>(name, characterSrc)*
+
+Takes two parameters. *name* is a string containing a specific character's name. *characterSrc* is a string containing the path to the character's sprite image. Use this method to change a character's sprite if they are already displayed. For example, if you want a character to have an expression change, use this method.
 
 <hr>
