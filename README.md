@@ -112,7 +112,7 @@ Takes five parameters. This method is the same as above, except for *music*. *mu
 
 *SetScene.<b>backgroundClearChar</b>(imgSrcPath)*
 
-Takes one parameter - *imgSrcPath* is a string containing the path to the image you want to set for the background. Use this method if you want to show a new setting (note that this method clears the characters from the screen. if you want to change the background but keep the characters in place, just use SetScene.background().
+Takes one parameter - *imgSrcPath* is a string containing the path to the image you want to set for the background. Use this method if you want to show a new setting/reset the stage (note that this method clears the characters from the screen. If you want to change the background but keep the characters in place, just use SetScene.background()).
 
 *SetScene.<b>changeCharacter</b>(name, characterSrc)*
 
