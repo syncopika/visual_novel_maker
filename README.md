@@ -17,6 +17,7 @@ In my implementation, I have a number of layered div elements, each with their o
 ##How to use:    
 Make sure in the HTML file you wish to present your game in, in the \<head> section you place the following scripts:    
 ```
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src='scripts/Screen.js'></script>
 <script src='scripts/SetScene.js'></script>
 <script src='scripts/Game.js'></script>
@@ -26,7 +27,7 @@ You can make your game in a separate .js file, which would need to be placed in 
 //option 1
 <head>
     <script src='yourGame.js'></script> //game script
-    ...as well as my three scripts
+    ...as well as my three scripts and jQuery
 </head>
 
 //option 2
@@ -106,6 +107,14 @@ Same as above method, but with the parameter *music* being a string containing t
 
 Takes two parameters. *character* should be a string containing the name of a character, and *dialog* should be a string containing the dialog for the specified character. 
 
+*SetScene.<b>dialogWithMusic</b>(character, dialog, music)*
+
+Just like the above method, except the *music* parameter should be a string with the path to a music file that will play when the corresponding dialog appears.
+
+*SetScene.<b>dialogWithEffect</b>(character, dialog, sound)*
+
+Same as above - *effect* should be a string containing the path to a file with the desired sound effect. Use this methd to have a sound effect play with dialog. Note that the sound effect will not loop.
+
 *SetScene.<b>showCharacter</b>(name, characterSrc, direction, animation)*
 
 Takes four parameters. *name* should be a string with the name of a character and *characterSrc* should be a string with the path to the character sprite. *direction* can be either the strings "left" or "right", indicating the direction from which the character should appear from. *animation* is a boolean (either true or false - not in a string) - true if the character should 'slide' in to position, or false if the character should just appear immediately. 
@@ -125,5 +134,14 @@ Same as the method above, except this one also allows for the addition of music 
 *SetScene.<b>changeCharacter</b>(name, characterSrc)*
 
 Takes two parameters. *name* is a string containing a specific character's name. *characterSrc* is a string containing the path to the character's sprite image. Use this method to change a character's sprite if they are already displayed. For example, if you want a character to have an expression change, use this method.
+
+*SetScene.<b>playAudio</b>(audioSrc)*
+
+Takes one parameter. *audioSrc* is a string that contains a path to a music file. Use this method if you want to play a new audio file and don't require that it occurs simultaneously with a background/character/dialog change.
+
+*SetScene.<b>playEffect</b>(audioSrc)*
+
+Same as above, but for a sound effect file. 
+
 
 <hr>
