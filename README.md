@@ -1,6 +1,8 @@
 # visual_novel_maker
 create an extremely basic visual novel! (with JavaScript)   
-<b>dependencies: jQuery and Bootstrap</b>
+<b>dependencies: jQuery and Bootstrap</b>    
+
+If you're on PC, I highly recommend Notepad++ for editing html files. Chrome is also the recommended browser for viewing in.
     
 see some samples here: https://syncopika.github.io/visual_novel_maker    
     
