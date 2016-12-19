@@ -1,6 +1,6 @@
 # visual_novel_maker
 create an extremely basic visual novel! (with JavaScript)   
-<b>dependencies: jQuery</b>
+<b>dependencies: jQuery and Bootstrap</b>
     
 see some samples here: https://syncopika.github.io/visual_novel_maker    
     
@@ -17,6 +17,7 @@ In my implementation, I have a number of layered div elements, each with their o
 ##How to use:    
 Make sure in the HTML file you wish to present your game in, in the \<head> section you place the following scripts:    
 ```
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src='scripts/Screen.js'></script>
 <script src='scripts/SetScene.js'></script>
@@ -27,12 +28,12 @@ You can make your game in a separate .js file, which would need to be placed in 
 //option 1
 <head>
     <script src='yourGame.js'></script> //game script
-    ...as well as my three scripts and jQuery
+    ...as well as the other scripts
 </head>
 
 //option 2
 <head>
-    my three scripts go here (setscene, screen, game)
+   scripts go here 
 </head>
 
 ...some html
@@ -44,6 +45,18 @@ You can make your game in a separate .js file, which would need to be placed in 
     //set up routes
 </script>
 ```
+Additionally, you'll need this in the \<body> section of the html file.
+```
+<div id='screen'>
+	<div class='row' id='rowScreen'>
+	</div>
+
+	<div class='row' id='rowDialog'>
+	</div>
+</div>
+```
+Please check out the template in the template folder for assistance!
+
 There are some rules that must be followed when using these scripts. One is using the Routes object, which should hold all the possible routes. There must always be a route called "mainRoute", which is where the player starts. Each route is a "property" of a dictionary({}); all the things that happen within a route (i.e. all the dialog, scene changes, etc...) are placed in an array, and this array is the "value" of a route. example:    
 ```
 //The Routes object is already initialized, so no need to!  
@@ -80,7 +93,7 @@ Routes["example"] = [
 ```
 *Screen.<b>menuScreen</b>(menuBackground, style)*
 
-Takes two parameters. *menuBackground* should be a string containing the path to the desired background image for the menu screen. *style* should be the string "col" (still working on adding other options), indicating that the menu buttons (currently only the start button) should appear as a column on the right side of the screen. This method should be declared after *Screen.make()*. Right now the only option is "col". Sorry!
+Takes two parameters. *menuBackground* should be a string containing the path to the desired background image for the menu screen. *style* should be the string "col" (still working on adding other options), indicating that the menu buttons (currently only the start button) should appear as a column on the right side of the screen. This method should be declared after *Screen.make()*. Right now the only option is "col". Sorry! Also, this method also creates the start button, so it must be invoked for the game to work. If no background image is available, use an empty string in place (""). 
 
 <hr>
 ###Game
