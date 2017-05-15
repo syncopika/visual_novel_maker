@@ -97,14 +97,14 @@ Routes["example"] = [
 
 Takes two parameters. *menuBackground* should be a string containing the path to the desired background image for the menu screen. *style* should be the string "col" (still working on adding other options), indicating that the menu buttons (currently only the start button) should appear as a column on the right side of the screen. This method should be declared after *Screen.make()*. Right now the only option is "col". Sorry! Also, this method also creates the start button, so it must be invoked for the game to work. If no background image is available, use an empty string in place (""). 
 
-<hr>    
+----------------------------
 ### Game
     
 *Game.<b>character</b>(character, color)*
 
 Takes two parameters. *character* should be a string containing the name of a character, and *color* should be a string containing a specified color (i.e. in hex code, so something like '#000' for black). Characters should be set up before setting up routes. 
 
-<hr>    
+---------------------------
 ### SetScene    
     
 *SetScene.<b>setDialogSpeed</b>(seconds)*
