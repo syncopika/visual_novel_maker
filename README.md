@@ -16,7 +16,7 @@ I decided to go with three "classes", each with their own .js file. One is calle
 
 In my implementation, I have a number of layered div elements, each with their own responsibility. The "ground" layer is a div with a canvas element (in retrospect, using a canvas may not have been a good idea, because of the CORS thing when testing - but I want to do some testing first to check), which holds the background image for a scene. The next div layer holds the character sprites, and above that is a layer that serves as an "options" page, with sliders to toggle volume and text speed. Lastly is a div layer which serves as the menu screen, and also holds the start button to initiate the game.    
     
-##How to use:    
+## How to use:    
 Make sure in the HTML file you wish to present your game in, in the \<head> section you place the following scripts:    
 ```
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -59,7 +59,7 @@ Additionally, you'll need this in the \<body> section of the html file.
 ```
 Please check out the template in the template folder for assistance!
 
-There are some rules that must be followed when using these scripts. One is using the Routes object, which should hold all the possible routes. There must always be a route called "mainRoute", which is where the player starts. Each route is a "property" of a dictionary({}); all the things that happen within a route (i.e. all the dialog, scene changes, etc...) are placed in an array, and this array is the "value" of a route. example:    
+There are some rules that must be followed when using these scripts. One is using the Routes object, which should hold all the possible routes. There must always be a route called "mainRoute", which is where the player starts. Each route is a "property" of a dictionary(i.e. { "property": "value", "property2": "value2" } ); all the things that happen within a route (i.e. all the dialog, scene changes, etc...) are placed in an array, and this array is the "value" of a route. Adding a route and a corresponding array to the said dictionary can be done so like this: ``` nameOfDictionary[propertyName] = value ```. example implementation:    
 ```
 //The Routes object is already initialized, so no need to!  
 
