@@ -11,7 +11,7 @@
 <script src='scripts/Screen.js'></script>
 <script src='scripts/SetScene.js'></script>
 <script src='scripts/Game.js'></script>
-<script src='scripts/catGame1.js'></script>
+<script src='demos/catGame1.js'></script>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
@@ -70,6 +70,7 @@ body{
 
 #footer{
 	text-align: center;
+	height: 100px;
 }
 
 #menu{
@@ -91,7 +92,7 @@ body{
 
 
 /* prevent mobile */
-@media (max-width: 960px){
+@media (max-width: 920px){
 
 #menu, #screen{
 	display: none;
@@ -115,38 +116,45 @@ body{
 	</div>
 </div>
 
+
 <div id='hidden'>
-	<h1>sorry, mobile devices not supported!!</h1>
+	<h1>sorry, mobile devices currently not supported!</h1>
 </div>
 
-<div class='col-lg-3' id='menu'>
-	<p>instructions: after selecting a game, press spacebar to traverse the scenes. </p>
-	<p> to change games after selecting one, please refresh the page! </p>
-	<p>also, when changing text speed: move slider to the left for FASTER text, and right for slower.</p>
-	<p>bug: sometimes when the music is supposed to be changed, volume goes to 0. 
-	  i.e. for "Mr. Cat's Neighborhood", if you choose the park route first, new music should play. If nothing is heard, try moving the
-		volume slider in the options menu.</p>
-	<h1 style='color: #fff'> choose a game: </h1>
-	<ul>
-		<li id='game1'><a href='#'>mr.cat's neighborhood</a></li>
-		<li id='game2'><a href='#'>mystery game</a></li>
-		<br>
-		<li class='options'><a>option menu</a></li>
-	</ul>
-	<p><a href='https://github.com/syncopika/visual_novel_maker'>source</a></p>
-</div>
 
-<div id='screen'>
-	<div class='row' id='rowScreen'>
+<div class='row'>
+	<div class='col-lg-3' id='menu'>
+		<p>instructions: after selecting a game, press spacebar to traverse the scenes. </p>
+		<p> to change games after selecting one, please refresh the page! </p>
+		<p>also, when changing text speed: move slider to the left for FASTER text, and right for slower.</p>
+		<p>bug: sometimes when the music is supposed to be changed, volume goes to 0. 
+		  i.e. for "Mr. Cat's Neighborhood", if you choose the park route first, new music should play. If nothing is heard, try moving the
+			volume slider in the options menu.</p>
+		<h1 style='color: #fff'> choose a game: </h1>
+		<ul>
+			<li id='game1'><a href='#'>mr.cat's neighborhood</a></li>
+			<li id='game2'><a href='#'>mystery game</a></li>
+			<br>
+			<li class='options'><a>option menu</a></li>
+		</ul>
+		<p><a href='https://github.com/syncopika/visual_novel_maker'>source</a></p>
+	</div>
+	
+	<div class='col-lg-1' id='spacer'>
 	</div>
 
-	<div class='row' id='rowDialog'>
+	<div class='col-lg-8' id='screen'>
+		<div class='row' id='rowScreen'>
+		</div>
+
+		<div class='row' id='rowDialog'>
+		</div>
 	</div>
 </div>
 
 
 <div id='footer'>
-	<p>n.c.h works 2016</p>
+	<p>n.c.h works 2016-2018</p>
 </div>
 
 </body>
@@ -193,11 +201,19 @@ function getGame(oldFile, newFile){
 /** Start game here **/
 $(document).ready(function(){
 
+
+// adjust depending on window size
+// note that there is no resize when window size is adjusted later on
 if($(window).height() <= 800){
-	//console.log($(window).height());
 	$('#menu').removeClass("col-lg-3").addClass("row"); //make the menu a row
+	$('#menu').css('width', '80%');
 	$('#menu').css({'margin': '0 auto'}); //center it 
 	Screen.make(600,400); //make screen smaller to accomodate smaller screen heights
+}else if($(window).width() < 1100){
+	$('#menu').removeClass("col-lg-3").addClass("row"); //make the menu a row
+	$('#menu').css('width', '100%');
+	$('#menu').css('margin', '2%');
+	Screen.make(900,700); //width, height
 }else{
 	Screen.make(900,700); //width, height
 }
@@ -215,16 +231,16 @@ Screen.setDialogBox("artAssets/dialogBar.png");
 //mr cats neighborhood
 $('#game1').click(function(){
 	var curGame = document.getElementsByTagName("script")[4].getAttribute("src");
-	if(curGame !== "scripts/CatGame1.js"){
-		getGame(curGame, "scripts/CatGame1.js");
+	if(curGame !== "demos/CatGame1.js"){
+		getGame(curGame, "demos/CatGame1.js");
 	}
 });
 
 //mystery game
 $('#game2').click(function(){
 	var curGame = document.getElementsByTagName("script")[4].getAttribute("src");
-	if(curGame !== "scripts/mysteryGame1.js"){
-		getGame(curGame, "scripts/mysteryGame1.js");
+	if(curGame !== "demos/mysteryGame1.js"){
+		getGame(curGame, "demos/mysteryGame1.js");
 	}
 });
 

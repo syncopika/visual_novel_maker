@@ -2,7 +2,6 @@
 //holds the Screen object and its methods
 //as well as the important variables
 
-
 var Screen = {};
 var SetScene = {};
 var Game = {};
