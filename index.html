@@ -18,6 +18,7 @@
 
 <style>
 #screen{
+	position: relative;
 	display: block;
 	margin: 20px auto;
 	text-align: center;
@@ -78,7 +79,7 @@ body{
 	margin-left: 5%;
 	border: #fff solid 1px;
 	border-radius: 5px;
-	width: 300px;
+	/*width: 300px;*/
 	
 }
 #menu li{
@@ -91,7 +92,7 @@ body{
 }
 
 
-/* prevent mobile */
+/* prevent mobile
 @media (max-width: 920px){
 
 #menu, #screen{
@@ -105,7 +106,7 @@ body{
 	display: block;
 }
 
-}
+}*/
 </style>
 
 <body>
@@ -116,14 +117,14 @@ body{
 	</div>
 </div>
 
-
+<!--
 <div id='hidden'>
 	<h1>sorry, mobile devices currently not supported!</h1>
 </div>
-
+-->
 
 <div class='row'>
-	<div class='col-lg-3' id='menu'>
+	<div class='col-lg-2 col-md-12 col-sm-12' id='menu'>
 		<p>instructions: after selecting a game, press spacebar to traverse the scenes. </p>
 		<p> to change games after selecting one, please refresh the page! </p>
 		<p>also, when changing text speed: move slider to the left for FASTER text, and right for slower.</p>
@@ -140,10 +141,10 @@ body{
 		<p><a href='https://github.com/syncopika/visual_novel_maker'>source</a></p>
 	</div>
 	
-	<div class='col-lg-1' id='spacer'>
+	<div class='col-lg-1 col-md-12 col-sm-12' id='spacer'>
 	</div>
 
-	<div class='col-lg-8' id='screen'>
+	<div class='col-lg-9 col-md-12 col-sm-12' id='screen'>
 		<div class='row' id='rowScreen'>
 		</div>
 
@@ -200,49 +201,54 @@ function getGame(oldFile, newFile){
 
 /** Start game here **/
 $(document).ready(function(){
+	/* adjust depending on window size
+	// note that there is no resize when window size is adjusted later on
+	if($(window).height() <= 800){
+		$('#menu').removeClass("col-lg-3").addClass("row"); //make the menu a row
+		$('#menu').css('width', '80%');
+		$('#menu').css({'margin': '0 auto'}); //center it 
+		Screen.make(600,400); //make screen smaller to accomodate smaller screen heights
+	}else if($(window).width() < 1100){
+		$('#menu').removeClass("col-lg-3").addClass("row"); //make the menu a row
+		$('#menu').css('width', '100%');
+		$('#menu').css('margin', '2%');
+		Screen.make(900,700); //width, height
+	}else{
+		Screen.make(900,700); //width, height
+	}*/
+	
+	// since my goal is to adjust the canvas size based on the client's viewport,
+	// adjust the size of #rowScreen first
+	//$('#rowScreen').css({'width': window.innerWidth / 4, 'height': window.innerHeight / 2});
+	
+	// make sure the canvas' size is based on #rowScreen
+	Screen.make(900,700); //Screen.make(850,630);
+
+	/**
+	 found an interesting problem. what if i want to name one of my characters Mr.Cat? any string with a period, or any non-alpha-num char
+	 will cause problems when using that string as an ID. can u come up with a function maybe that parses the string, strips it of the special
+	 char, and makes the ID like MrCat or something like that?
+
+	*/
+	Screen.menuScreen("artAssets/mrcatsneighborhood.png", "col");
+	Screen.setDialogBox("artAssets/dialogBar.png");
 
 
-// adjust depending on window size
-// note that there is no resize when window size is adjusted later on
-if($(window).height() <= 800){
-	$('#menu').removeClass("col-lg-3").addClass("row"); //make the menu a row
-	$('#menu').css('width', '80%');
-	$('#menu').css({'margin': '0 auto'}); //center it 
-	Screen.make(600,400); //make screen smaller to accomodate smaller screen heights
-}else if($(window).width() < 1100){
-	$('#menu').removeClass("col-lg-3").addClass("row"); //make the menu a row
-	$('#menu').css('width', '100%');
-	$('#menu').css('margin', '2%');
-	Screen.make(900,700); //width, height
-}else{
-	Screen.make(900,700); //width, height
-}
+	//mr cats neighborhood
+	$('#game1').click(function(){
+		var curGame = document.getElementsByTagName("script")[4].getAttribute("src");
+		if(curGame !== "demos/CatGame1.js"){
+			getGame(curGame, "demos/CatGame1.js");
+		}
+	});
 
-/**
- found an interesting problem. what if i want to name one of my characters Mr.Cat? any string with a period, or any non-alpha-num char
- will cause problems when using that string as an ID. can u come up with a function maybe that parses the string, strips it of the special
- char, and makes the ID like MrCat or something like that?
-
-*/
-Screen.menuScreen("artAssets/mrcatsneighborhood.png", "col");
-Screen.setDialogBox("artAssets/dialogBar.png");
-
-
-//mr cats neighborhood
-$('#game1').click(function(){
-	var curGame = document.getElementsByTagName("script")[4].getAttribute("src");
-	if(curGame !== "demos/CatGame1.js"){
-		getGame(curGame, "demos/CatGame1.js");
-	}
-});
-
-//mystery game
-$('#game2').click(function(){
-	var curGame = document.getElementsByTagName("script")[4].getAttribute("src");
-	if(curGame !== "demos/mysteryGame1.js"){
-		getGame(curGame, "demos/mysteryGame1.js");
-	}
-});
+	//mystery game
+	$('#game2').click(function(){
+		var curGame = document.getElementsByTagName("script")[4].getAttribute("src");
+		if(curGame !== "demos/mysteryGame1.js"){
+			getGame(curGame, "demos/mysteryGame1.js");
+		}
+	});
 
 });
 

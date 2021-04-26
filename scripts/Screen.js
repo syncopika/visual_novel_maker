@@ -45,7 +45,7 @@ var charScreen, routeScreen, menuScreen, optionScreen;
 //make screen
 Screen.make = function(width, height){
 
-	$('#screen').css({"width": width+100, "height": height+100});
+	$('#screen').css({"width": width, "height": height, "position": "relative"});
 
 	$('#rowDialog').css({"width": width});
 	$('#rowDialog').css({"margin-bottom": 50});
@@ -61,9 +61,11 @@ Screen.make = function(width, height){
 	//the stack, find all the checkpoints, and create nodes that way. 
 	
 	//put canvas in div, give it a border
-	canvas = $("<canvas id='theScreen' height=" + "\"" + height + "\" " + "width=\"" + width + "\" >" + "</canvas>");
+	canvas = $(`<canvas id='theScreen' width=${width} height=${height}></canvas>`);
 	canvas.appendTo($('#rowScreen'))
-	.css("border", "#fff 1px solid");
+	.css("border", "#fff 1px solid")
+	.css("width", width)
+	.css("height", height);
 	
 	offsetTop = $('#theScreen').position()["top"]; //"#theScreen" is the canvas
     offsetLeft = $('#theScreen').position()["left"];
