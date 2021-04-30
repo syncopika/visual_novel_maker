@@ -159,53 +159,53 @@ Screen.routeScreen = function(option1, option1Name, option2, option2Name, option
 	//additional inner function.
 	return function(){
 	
-	$('#routeScreen').empty();
-	
-	//set update to true so spacebar won't be active
-	update = true;
-	
-	//update option screen with new choices
-	var choice1 = $('.option1')
-	var choice2 = $('.option2')
-	var choice3 = $('.option3');
-	
-	//check if the choice button elements don't exist yet
-	if(option1 !== "" && option2 !== "" && !$('.option1').length){
-		choice1 = $("<div class='row'><button class='btn-primary option1'>" + option1Name + "</button></div>");
-		choice2 =  $("<div class='row'><button class='btn-primary option2'>" + option2Name + "</button></div>");
-	}
-	
-	//option3 separated here because at the minimum, there should be 2 options. 3rd is optional.
-	if(option3 !== "" && !$('.option3').length){
-		choice3 =  $("<div class='row'><button class='btn-primary option3'>" + option3Name + "</button></div>");
-	}
-	
-	//$('#routeScreen').css({"border" : "solid 1px #000"});
-	choice1.appendTo($('#routeScreen'));
-	choice2.appendTo($('#routeScreen'));
-	choice3.appendTo($('#routeScreen'));
+		$('#routeScreen').empty();
+		
+		//set update to true so spacebar won't be active
+		update = true;
+		
+		//update option screen with new choices
+		var choice1 = $('.option1')
+		var choice2 = $('.option2')
+		var choice3 = $('.option3');
+		
+		//check if the choice button elements don't exist yet
+		if(option1 !== "" && option2 !== "" && !$('.option1').length){
+			choice1 = $("<div class='row'><button class='btn-primary option1'>" + option1Name + "</button></div>");
+			choice2 =  $("<div class='row'><button class='btn-primary option2'>" + option2Name + "</button></div>");
+		}
+		
+		//option3 separated here because at the minimum, there should be 2 options. 3rd is optional.
+		if(option3 !== "" && !$('.option3').length){
+			choice3 =  $("<div class='row'><button class='btn-primary option3'>" + option3Name + "</button></div>");
+		}
+		
+		//$('#routeScreen').css({"border" : "solid 1px #000"});
+		choice1.appendTo($('#routeScreen'));
+		choice2.appendTo($('#routeScreen'));
+		choice3.appendTo($('#routeScreen'));
 
-	//show screen by changing opacity
-	//good read on z-index: https://philipwalton.com/articles/what-no-one-told-you-about-z-index/
-	//might be relevant...
-	$('#charScreen').css("opacity", .4);
-	$('#theScreen').css("opacity", .4);
-	$('#routeScreen').css({"opacity": 1, "z-index": 1});
-	
-	SetScene.fadeAudio(0)();
-	//execute route according to btn click
-	$(".option1").click(function(){
-		Screen.closeOpScreen();
-		Game.branch(option1)();
-	});
-	$(".option2").click(function(){
-		Screen.closeOpScreen();
-		Game.branch(option2)();
-	});
-	$(".option3").click(function(){
-		Screen.closeOpScreen();
-		Game.branch(option3)();
-	});
+		//show screen by changing opacity
+		//good read on z-index: https://philipwalton.com/articles/what-no-one-told-you-about-z-index/
+		//might be relevant...
+		$('#charScreen').css("opacity", .4);
+		$('#theScreen').css("opacity", .4);
+		$('#routeScreen').css({"opacity": 1, "z-index": 1});
+		
+		SetScene.fadeAudio(0)();
+		//execute route according to btn click
+		$(".option1").click(function(){
+			Screen.closeOpScreen();
+			Game.branch(option1)();
+		});
+		$(".option2").click(function(){
+			Screen.closeOpScreen();
+			Game.branch(option2)();
+		});
+		$(".option3").click(function(){
+			Screen.closeOpScreen();
+			Game.branch(option3)();
+		});
 	}
 }
 
@@ -258,8 +258,8 @@ $(document).on('click', ".options", function(){
 			
 	//if back button click, go back 
 	$(document).on('click', "#back", function(){
-	//hide option screen
-	$("#optionScreen").css({"z-index": -1, "opacity": 0});
+		//hide option screen
+		$("#optionScreen").css({"z-index": -1, "opacity": 0});
 	});
 });
 
