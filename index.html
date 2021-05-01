@@ -19,10 +19,13 @@
 
 <style>
 #screen{
-	position: relative;
 	display: block;
-	margin: 20px auto;
+	margin: 0 auto;
 	text-align: center;
+}
+
+#rowScreen{
+	position: relative;
 }
 
 #rowDialog{
@@ -30,12 +33,16 @@
 	border: #fff 1px dotted;
 }
 
-ul{
-	padding: 0;
+#spacer {
+	height: 20px;
 }
 
 #footer{
-	height: 200px;
+	height: 100px;
+}
+
+ul{
+	padding: 0;
 }
 
 #title{
@@ -57,32 +64,29 @@ a:hover{
 body{
 	background-color: #36454f;
 }
+
 .row{
 	text-align: center;
 }
+
 .btn-primary{
 	background-color: #0199de;
 	color: #fff;
-	height: 30px;
-	width: 30%;
+	padding: 5px 8px 5px 8px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	margin-top: 15%;
 }
 
-#footer{
-	text-align: center;
-	height: 100px;
-}
-
 #menu{
 	text-align: center;
-	margin-left: 5%;
+	margin-left: 1%;
+	margin-right: 1%;
 	border: #fff solid 1px;
 	border-radius: 5px;
-	/*width: 300px;*/
-	
+	padding: 0;
 }
+
 #menu li{
 	list-style-type: none;
 	color: #fff;
@@ -98,21 +102,22 @@ body{
 </div>
 
 <div class='row'>
-	<div class='col-lg-2 col-md-12 col-sm-12' id='menu'>
-		<p>instructions: after selecting a game, press spacebar to traverse the scenes. </p>
-		<p> to change games after selecting one, please refresh the page! </p>
-		<p>also, when changing text speed: move slider to the left for FASTER text, and right for slower.</p>
-		<p>bug: sometimes when the music is supposed to be changed, volume goes to 0. 
-		  i.e. for "Mr. Cat's Neighborhood", if you choose the park route first, new music should play. If nothing is heard, try moving the
-			volume slider in the options menu.</p>
-		<h1 style='color: #fff'> choose a game: </h1>
-		<ul>
-			<li id='game1'><a href='#'>mr.cat's neighborhood</a></li>
-			<li id='game2'><a href='#'>mystery game</a></li>
-			<br>
-			<li class='options'><a>option menu</a></li>
-		</ul>
-		<p><a href='https://github.com/syncopika/visual_novel_maker'>source</a></p>
+	<div class='col-lg-2 col-md-12 col-sm-12'>
+		<div id='menu'>
+			<p>instructions: after selecting a game, press spacebar to traverse the scenes. </p>
+			<p>to change games after selecting one, please refresh the page!</p>
+			<p>note: there may be bugs!</p>
+			<h1 style='color: #fff'> choose a game: </h1>
+			<ul>
+				<li id='game1'><a href='#'>mr.cat's neighborhood</a></li>
+				<li id='game2'><a href='#'>mystery game</a></li>
+				<br />
+				<li class='options'><a>option menu</a></li>
+			</ul>
+			<p><a href='https://github.com/syncopika/visual_novel_maker'>source</a></p>
+			<br />
+			<p>n.c.h works c.2016</p>
+		</div>
 	</div>
 	
 	<div class='col-lg-1 col-md-12 col-sm-12' id='spacer'>
@@ -127,10 +132,6 @@ body{
 	</div>
 </div>
 
-
-<div id='footer'>
-	<p>n.c.h works 2016-2018</p>
-</div>
 
 </body>
 
@@ -180,7 +181,8 @@ $(document).ready(function(){
 	if(screenWidth >= 1000){
 		Screen.make(900, 700);
 	}else{
-		Screen.make(screenWidth, screenWidth*(7/9));
+		// subtract 50 to ensure that the canvas will be within the width of the screen
+		Screen.make(screenWidth-50, (screenWidth-50)*(7/9));
 	}
 
 	/**
