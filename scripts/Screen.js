@@ -45,8 +45,6 @@ var charScreen, routeScreen, menuScreen, optionScreen;
 //make screen
 Screen.make = function(width, height){
 
-	$('#screen').css({"width": width+100, "height": height+100});
-
 	$('#rowDialog').css({"width": width});
 	$('#rowDialog').css({"margin-bottom": 50});
 	
@@ -61,39 +59,29 @@ Screen.make = function(width, height){
 	//the stack, find all the checkpoints, and create nodes that way. 
 	
 	//put canvas in div, give it a border
-	canvas = $("<canvas id='theScreen' height=" + "\"" + height + "\" " + "width=\"" + width + "\" >" + "</canvas>");
+	canvas = $(`<canvas id='theScreen' width=${width} height=${height}></canvas>`);
 	canvas.appendTo($('#rowScreen'))
-	.css("border", "#fff 1px solid");
+	.css("border", "#fff 1px solid")
+	.css("width", width)
+	.css("height", height);
 	
-	offsetTop = $('#theScreen').position()["top"]; //"#theScreen" is the canvas
+	offsetTop = $('#theScreen').position()["top"];
     offsetLeft = $('#theScreen').position()["left"];
 	
-	/**
-	* screen to display characters
-	*/
 	//use charScreen to show characters. this will allow for easy animation, ideally
 	charScreen = $("<div id='charScreen'>" + "</div>");
 	charScreen.appendTo($('#rowScreen'))
 	.css({"position": "absolute", "top": offsetTop+"px", "left": offsetLeft+"px", "z-index":0, "background-color": "transparent", "width": width, "height": height});
 	
-	/**
-	* story option screen (story path branching)
-	*/
-	//make another screen to display options
+	//make another screen to display route options
 	routeScreen = $("<div id='routeScreen'>" + "</div>");
 	routeScreen.appendTo($('#rowScreen'))
 	.css({"position": "absolute", "top": offsetTop+"px", "left": offsetLeft+"px", "z-index":0, "background-color": "transparent", "width": width, "height": height});
 	
-	/**
-	* menu screen
-	*/
 	menuScreen = $("<div id='menuScreen'></div>");
 	menuScreen.appendTo($('#rowScreen'))
 	.css({"position": "absolute", "top": offsetTop+"px", "left": offsetLeft+"px", "z-index":0, "background-color": "#fff", "width": width, "height": height});
 	
-	/**
-	* option screen (for toggling volume, text speed, etc.)
-	*/
 	optionScreen = $("<div id='optionScreen'></div>");
 	optionScreen.appendTo($('#rowScreen'))
 	.css({"position": "absolute", "top": offsetTop+"px", "left": offsetLeft+"px", "z-index":-1, "opacity": 0, "background-color": "#fff", "width": width, "height": height});
@@ -101,44 +89,33 @@ Screen.make = function(width, height){
 	var optionHeader = $("<h1> options! </h1>");
 	optionHeader.appendTo($('#optionScreen'));
 	
-	//set default volume to .8
 	var toggleVolume = $("<input id='volControl' style='width: 70%; display: block; margin: 0 auto;' type='range' min='0' max='1' step='.1' value='.8' /> <p style='color: #000'> volume </p>");
-	var toggleTextSpeed = $("<input id='textControl' style='width: 70%; display: block; margin: 0 auto;' type='range' min='1' max='80' step='1' /> <p style='color: #000'> text speed </p>");
+	var toggleTextSpeed = $("<input id='textControl' style='width: 70%; display: block; margin: 0 auto;' type='range' min='-80' max='-1' step='1' /> <p style='color: #000'> text speed </p>");
 	toggleVolume.appendTo($("#optionScreen"));
 	toggleTextSpeed.appendTo($("#optionScreen"));
 	
-	//add a button to go back
 	var backButton = $("<button id='back' class='btn-primary'> go back </button>");
 	backButton.appendTo($("#optionScreen"))
-	$('#back').css({"text-align": "center", "margin-top": "50%" });
+	$('#back').css({"text-align": "center"});
 	
-	/**
-	* audio elements
-	*/
-	//make an audio element to play audio track
 	var audioElement = $("<audio id='music' preload='auto'></audio>");
 	audioElement.appendTo($('#screen'));
-	$('#music').prop("volume", .8); //default volume is .8
+	$('#music').prop("volume", .8);
 	
 	//make an audio element to hold sound effects
 	var audioElement2 = $("<audio id='effects'></audio>");
 	audioElement2.appendTo($('#screen'));
 	
-	//slider input changes
 	var volController = document.getElementById('volControl');
-	
 	volController.oninput = function(){
-		//update html 
-		//update volume
 		var audioVolume = document.getElementById('music');
 		audioVolume.volume = parseFloat($('#volControl').val());
-	};
+	}
 	
 	var textSpeedController = document.getElementById('textControl');
 	textSpeedController.oninput = function(){
-		//update html
-		//update speed
-		SetScene.setDialogSpeed(textSpeedController.value);
+		// we want the slider to get more negative (decrease in seconds) as we move left to right
+		SetScene.setDialogSpeed(textSpeedController.value * -1);
 	}
 	
 }
@@ -157,63 +134,61 @@ Screen.routeScreen = function(option1, option1Name, option2, option2Name, option
 	//additional inner function.
 	return function(){
 	
-	$('#routeScreen').empty();
-	
-	//set update to true so spacebar won't be active
-	update = true;
-	
-	//update option screen with new choices
-	var choice1 = $('.option1')
-	var choice2 = $('.option2')
-	var choice3 = $('.option3');
-	
-	//check if the choice button elements don't exist yet
-	if(option1 !== "" && option2 !== "" && !$('.option1').length){
-		choice1 = $("<div class='row'><button class='btn-primary option1'>" + option1Name + "</button></div>");
-		choice2 =  $("<div class='row'><button class='btn-primary option2'>" + option2Name + "</button></div>");
-	}
-	
-	//option3 separated here because at the minimum, there should be 2 options. 3rd is optional.
-	if(option3 !== "" && !$('.option3').length){
-		choice3 =  $("<div class='row'><button class='btn-primary option3'>" + option3Name + "</button></div>");
-	}
-	
-	//$('#routeScreen').css({"border" : "solid 1px #000"});
-	choice1.appendTo($('#routeScreen'));
-	choice2.appendTo($('#routeScreen'));
-	choice3.appendTo($('#routeScreen'));
+		$('#routeScreen').empty();
+		
+		//set update to true so spacebar won't be active
+		update = true;
+		
+		//update option screen with new choices
+		var choice1 = $('.option1')
+		var choice2 = $('.option2')
+		var choice3 = $('.option3');
+		
+		//check if the choice button elements don't exist yet
+		if(option1 !== "" && option2 !== "" && !$('.option1').length){
+			choice1 = $("<div class='row'><button class='btn-primary option1'>" + option1Name + "</button></div>");
+			choice2 =  $("<div class='row'><button class='btn-primary option2'>" + option2Name + "</button></div>");
+		}
+		
+		//option3 separated here because at the minimum, there should be 2 options. 3rd is optional.
+		if(option3 !== "" && !$('.option3').length){
+			choice3 =  $("<div class='row'><button class='btn-primary option3'>" + option3Name + "</button></div>");
+		}
+		
+		//$('#routeScreen').css({"border" : "solid 1px #000"});
+		choice1.appendTo($('#routeScreen'));
+		choice2.appendTo($('#routeScreen'));
+		choice3.appendTo($('#routeScreen'));
 
-	//show screen by changing opacity
-	//good read on z-index: https://philipwalton.com/articles/what-no-one-told-you-about-z-index/
-	//might be relevant...
-	$('#charScreen').css("opacity", .4);
-	$('#theScreen').css("opacity", .4);
-	$('#routeScreen').css({"opacity": 1, "z-index": 1});
-	
-	SetScene.fadeAudio(0)();
-	//execute route according to btn click
-	$(".option1").click(function(){
-		Screen.closeOpScreen();
-		Game.branch(option1)();
-	});
-	$(".option2").click(function(){
-		Screen.closeOpScreen();
-		Game.branch(option2)();
-	});
-	$(".option3").click(function(){
-		Screen.closeOpScreen();
-		Game.branch(option3)();
-	});
+		//show screen by changing opacity
+		//good read on z-index: https://philipwalton.com/articles/what-no-one-told-you-about-z-index/
+		//might be relevant...
+		$('#charScreen').css("opacity", .4);
+		$('#theScreen').css("opacity", .4);
+		$('#routeScreen').css({"opacity": 1, "z-index": 1});
+		
+		SetScene.fadeAudio(0)();
+		//execute route according to btn click
+		$(".option1").click(function(){
+			Screen.closeOpScreen();
+			Game.branch(option1)();
+		});
+		$(".option2").click(function(){
+			Screen.closeOpScreen();
+			Game.branch(option2)();
+		});
+		$(".option3").click(function(){
+			Screen.closeOpScreen();
+			Game.branch(option3)();
+		});
 	}
 }
 
 Screen.menuScreen = function(menuBG, style){
-	
 	if(style === "col"){
-		
 		//create the new elements if they don't exist
 		if(!$('#left').length){
-			var col = $("<div id='left' class='col-lg-12'> <div id='right'></div> </div>");
+			var col = $("<div id='left' class='col-lg-12 col-md-12 col-sm-12'> <div id='right'></div> </div>");
 			col.appendTo($('#menuScreen'));
 		
 			var choice1 = $("<div class='row'><button class='btn-primary' id='start'>start</button></div>");
@@ -226,12 +201,11 @@ Screen.menuScreen = function(menuBG, style){
 		}
 		
 		$('#left').css({"background-image": "url(" + menuBG + ")", "background-size": "100% 100%", "background-repeat": "no-repeat", "height": "100%"});
-		$('#right').css({'width': 250, 'margin-left': '70%'});
+		$('#right').css({'margin-left': '70%'});
 	
 	//show the menu screen in a different way
 	}else if(style === "row"){
 	}
-	
 }
 
 Screen.closeOpScreen = function(){
@@ -256,8 +230,8 @@ $(document).on('click', ".options", function(){
 			
 	//if back button click, go back 
 	$(document).on('click', "#back", function(){
-	//hide option screen
-	$("#optionScreen").css({"z-index": -1, "opacity": 0});
+		//hide option screen
+		$("#optionScreen").css({"z-index": -1, "opacity": 0});
 	});
 });
 
