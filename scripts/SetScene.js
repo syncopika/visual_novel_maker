@@ -9,18 +9,18 @@
 //set new background image
 SetScene.background = function(imgSrcPath){
 	return function(){
-			//we can assume the canvas has been initialized already when
-			//this function is called
-			canvas = document.getElementById('theScreen');
-			ctx = canvas.getContext("2d");
+		//we can assume the canvas has been initialized already when
+		//this function is called
+		canvas = document.getElementById('theScreen');
+		ctx = canvas.getContext("2d");
 
-			var image = new Image();
-			image.src = imgSrcPath;
-	
-			image.onload = function(){
-				ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-			}
+		var image = new Image();
+		image.src = imgSrcPath;
+
+		image.onload = function(){
+			ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 		}
+	}
 }
 
 //set up dialog
@@ -67,8 +67,7 @@ SetScene.dialog = function(character, dialog){
 //show character sprite
 SetScene.showCharacter = function(name, characterSrc, direction, animation){
 	return function(){
-		//depending on left or right, give it a specific left or right position
-		//of the #charScreen
+		var endDistance = canvas.width/6;
 		if(animation === true){
 			//update == true means that the user cannot skip the animation
 			update = true;
@@ -78,25 +77,25 @@ SetScene.showCharacter = function(name, characterSrc, direction, animation){
 				$('#' + name).css({'position': 'absolute', 'bottom': 0, 'left': -180, 'display': 'none'});
 				//add class so we can hide the character when we change scenes
 				$('#' + name).addClass('left');
-				slideIn(name, 100, direction);
+				// stop pic animation when endDistance from left end
+				slideIn(name, endDistance, direction);
 			}else if(direction === "right"){
 				$('#charScreen').prepend('<img id= ' + name + ' src=' + '"' + characterSrc + '"' + ' width=' + canvas.width/2.5 + 'px height=' + canvas.height/2 + 'px />');
 				//initially place far right
 				$('#' + name).css({'position': 'absolute', 'bottom': 0, 'right': -180, 'display': 'none'});
 				$('#' + name).addClass('right');
-				//stop pic animation when 100px from right end
-				slideIn(name, 100, direction);
+				// stop pic animation when endDistance from right end
+				slideIn(name, endDistance, direction);
 			}
 		}else if (animation === false){
-			//figure out how to scale characters appropriately depending on the screen's dimensions!!
 			if(direction === "left"){
 				//append an img element to the div layer on top of canvas
 				$('#charScreen').prepend('<img id= ' + name + ' src=' + '"' + characterSrc + '"' + ' width=' + canvas.width/2.5 + 'px height=' + canvas.height/2 + 'px />');
-				$('#' + name).css({'position': 'absolute', 'bottom': 0, 'left': 100});
+				$('#' + name).css({'position': 'absolute', 'bottom': 0, 'left': endDistance});
 				$('#' + name).addClass('left');
 			}else if(direction === "right"){
 				$('#charScreen').prepend('<img id= ' + name + ' src=' + '"' + characterSrc + '"' + ' width=' + canvas.width/2.5 + 'px height=' + canvas.height/2 + 'px />');
-				$('#' + name).css({'position': 'absolute', 'bottom': 0, 'right': 100});
+				$('#' + name).css({'position': 'absolute', 'bottom': 0, 'right': endDistance});
 				$('#' + name).addClass('right');
 			}
 			//Add an option for CENTER?

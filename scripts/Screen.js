@@ -45,8 +45,6 @@ var charScreen, routeScreen, menuScreen, optionScreen;
 //make screen
 Screen.make = function(width, height){
 
-	$('#screen').css({"width": width, "height": height});
-
 	$('#rowDialog').css({"width": width});
 	$('#rowDialog').css({"margin-bottom": 50});
 	
@@ -67,7 +65,7 @@ Screen.make = function(width, height){
 	.css("width", width)
 	.css("height", height);
 	
-	offsetTop = $('#theScreen').position()["top"]; //"#theScreen" is the canvas
+	offsetTop = $('#theScreen').position()["top"];
     offsetLeft = $('#theScreen').position()["left"];
 	
 	//use charScreen to show characters. this will allow for easy animation, ideally

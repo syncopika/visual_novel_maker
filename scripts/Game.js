@@ -70,7 +70,8 @@ Game.nextScene = function(){
 * initialize the game - i.e. allow traversal through array for each scene
 *
 **/
-//go the next scene on spacebar press down
+var lastTouchTime = 0; // use this to help detect double taps
+var numTaps = 0;
 function gameStart(){
 	$(document).keydown(function(e){
 		e.preventDefault();
@@ -78,6 +79,24 @@ function gameStart(){
 			// spacebar
 			Game.nextScene();
 		}
+	});
+	
+	// support mobile touch events. can refactor this later
+	// https://forum.jquery.com/topic/doubletap-event
+	// https://stackoverflow.com/questions/10614481/disable-double-tap-zoom-option-in-browser-on-touch-devices/53236027
+	document.addEventListener("touchstart", function(evt){
+		var now = Date.now();
+		if(numTaps === 2){
+			// is time elapsed small enough to be considered a double tap?
+			var msDiff = now - lastTouchTime;
+			if(msDiff < 300 && update === false){
+				Game.nextScene();
+			}
+			numTaps = 1;
+		}else{
+			numTaps++;
+		}
+		lastTouchTime = now;
 	});
 }
 
