@@ -183,7 +183,7 @@ function slideIn(name, end, direction){
 		$('#' + name).css({'display': 'block'});
 	}
 	//if the image finally reaches the endpoint, stop
-	if(end === initial){
+	if(end <= initial){
 		update = false;
 		return;
 	}

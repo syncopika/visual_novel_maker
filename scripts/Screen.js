@@ -188,7 +188,7 @@ Screen.menuScreen = function(menuBG, style){
 	if(style === "col"){
 		//create the new elements if they don't exist
 		if(!$('#left').length){
-			var col = $("<div id='left' class='col-lg-12'> <div id='right'></div> </div>");
+			var col = $("<div id='left' class='col-lg-12 col-md-12 col-sm-12'> <div id='right'></div> </div>");
 			col.appendTo($('#menuScreen'));
 		
 			var choice1 = $("<div class='row'><button class='btn-primary' id='start'>start</button></div>");

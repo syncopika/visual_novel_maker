@@ -89,7 +89,7 @@ function gameStart(){
 		if(numTaps === 2){
 			// is time elapsed small enough to be considered a double tap?
 			var msDiff = now - lastTouchTime;
-			if(msDiff < 300 && update === false){
+			if(msDiff <= 1000 && update === false){
 				Game.nextScene();
 			}
 			numTaps = 1;
