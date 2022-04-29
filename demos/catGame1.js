@@ -4,7 +4,10 @@ Screen.menuScreen("artAssets/mrcatsneighborhood.png", "col");
 Screen.setDialogBox("artAssets/dialogBar.png");
 
 //set up characters
-Game.character("mr.cat", '#000');
+
+const voices = window.speechSynthesis.getVoices();
+
+Game.character("cat", '#000');
 //Game.character("kitty", '#000');
 //Game.character("tabby", '#000');
 Game.character("deer", '#000');

@@ -7,15 +7,21 @@
 **/
 
 //set up character
-Game.character = function(character, color){
+Game.character = function(character, color="#000", voice=null){
 	//give character text a color
 	//create another object within the game object called "characters", which will store info for all the characters
 	if(Game.characters === undefined){
 		Game.characters = {};
-		Game.characters[character] = color; 
-	}else{
-		Game.characters[character] = color; 
-	}
+    }
+    
+    if(voice === null){
+        voice = window.speechSynthesis.getVoices()[0];
+    }
+    
+    Game.characters[character] = {
+        color,
+        voice
+    };
 }
 
 //TODO: make a progress bar

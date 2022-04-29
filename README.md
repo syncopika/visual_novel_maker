@@ -100,9 +100,9 @@ Takes two parameters. *menuBackground* should be a string containing the path to
 ----------------------------
 ### Game
     
-*Game.<b>character</b>(character, color)*
+*Game.<b>character</b>(character, color='#000', voice=null)*
 
-Takes two parameters. *character* should be a string containing the name of a character, and *color* should be a string containing a specified color (i.e. in hex code, so something like '#000' for black). Characters should be set up before setting up routes. 
+Takes two parameters. *character* should be a string containing the name of a character, and *color* should be a string containing a specified color (i.e. in hex code, so something like '#000' for black). By default color will be '#000'. The third argument is voice, which should be a [SpeechSynthesisVoice object](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisVoice). By default voice will be null. Characters should be set up before setting up routes. 
 
 ---------------------------
 ### SetScene    

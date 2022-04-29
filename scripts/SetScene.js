@@ -1,5 +1,3 @@
-//SetScene object 
-
 /**
 * SET SCENE OBJECT ================================================
 * functions that pertain to scene creation/setting
@@ -25,13 +23,12 @@ SetScene.background = function(imgSrcPath){
 
 //set up dialog
 SetScene.dialog = function(character, dialog){
-
 	var colon = ""; //this adds a colon if a character is specified.
 		
-	if(character !== ""){
+	if(character){
 		colon = ": ";
 	}
-		
+    
 	//helper function to handle how dialog is shown
 	function typeDialog(index, textColor){
 		//this one is for if the user just wants all the text shown at once. 
@@ -39,28 +36,42 @@ SetScene.dialog = function(character, dialog){
 			$('#dialog').replaceWith('<h3 id="dialog" style="color: ' + textColor + ';"' + '>' + character + colon + dialog + '</h3>');
 			return;
 		}
+        
 		update = true;
-		//this is for showing text at a given speed
+		
+        //this is for showing text at a given speed
 		$('#dialog').replaceWith('<h3 id="dialog" style="color: ' + textColor + ';"' + '>' + character + colon + dialog.substring(0, index) + '</h3>');
 		if(index === dialog.length){
 			update = false;
 			return;
 		}
+        
 		setTimeout(function(){
 			typeDialog(index+1, textColor);
 		}, textSpeed);
 	}
 	
 	return function(){
-			var color = '#000';
-			if(Game.characters !== undefined){
-				color = Game.characters[character];
-			}
-			$('#rowDialog').empty();
-			//put just the name of character first (if character is specified)
-			$('#rowDialog').append('<h3 id="dialog" style="color: ' + color + ';"' + '>' + character + colon + '</h3>');
-			//then show dialog 
-			typeDialog(0, color);
+        const characterInfo = Game.characters[character];
+        const color = Game.characters[character].color;
+            
+        $('#rowDialog').empty();
+        
+        //put just the name of character first (if character is specified)
+        $('#rowDialog').append('<h3 id="dialog" style="color: ' + color + ';"' + '>' + character + colon + '</h3>');
+        
+        // TODO: depending on voice toggle (on or off), play voice
+        // https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis
+        if(voiceToggle){
+            window.speechSynthesis.cancel();
+            const speech = new SpeechSynthesisUtterance(dialog);
+            speech.voice = Game.characters[character].voice;
+            
+            window.speechSynthesis.speak(speech);
+        }
+        
+        //then show dialog 
+        typeDialog(0, color);
 	}
 }
 
@@ -98,7 +109,7 @@ SetScene.showCharacter = function(name, characterSrc, direction, animation){
 				$('#' + name).css({'position': 'absolute', 'bottom': 0, 'right': endDistance});
 				$('#' + name).addClass('right');
 			}
-			//Add an option for CENTER?
+			// TODO: Add an option for CENTER?
 		}	
 	}
 }
@@ -120,8 +131,8 @@ SetScene.showCharacterWithBGM = function(name, characterSrc, direction, animatio
 //set a new background and clear the characters
 SetScene.backgroundClearChar = function(imgSrcPath){
 	return function(){
-			SetScene.background(imgSrcPath)();
-			$('#charScreen').empty();
+        SetScene.background(imgSrcPath)();
+        $('#charScreen').empty();
 	}
 }
 
@@ -174,7 +185,6 @@ SetScene.moveToRoute = function(route){
 
 //helper function for character slide-in animation
 function slideIn(name, end, direction){
-	
 	//get the current location
 	var initial = parseInt($('#' + name).css(direction));
 

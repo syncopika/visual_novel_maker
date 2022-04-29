@@ -8,6 +8,7 @@ var Game = {};
 var Routes = {};
 var bookmark = 0;
 var textSpeed = 42;
+var voiceToggle = false;
 var update = false; //if an update to the screen is happening, prevent spacebar press from advancing
 var currentRoute = "mainRoute"; //keep track of current route - start at main route
 
@@ -86,14 +87,19 @@ Screen.make = function(width, height){
 	optionScreen.appendTo($('#rowScreen'))
 	.css({"position": "absolute", "top": offsetTop+"px", "left": offsetLeft+"px", "z-index":-1, "opacity": 0, "background-color": "#fff", "width": width, "height": height});
 	
+    // create options page
 	var optionHeader = $("<h1> options! </h1>");
 	optionHeader.appendTo($('#optionScreen'));
 	
 	var toggleVolume = $("<input id='volControl' style='width: 70%; display: block; margin: 0 auto;' type='range' min='0' max='1' step='.1' value='.8' /> <p style='color: #000'> volume </p>");
 	var toggleTextSpeed = $("<input id='textControl' style='width: 70%; display: block; margin: 0 auto;' type='range' min='-80' max='-1' step='1' /> <p style='color: #000'> text speed </p>");
-	toggleVolume.appendTo($("#optionScreen"));
+	var toggleVoice = $(
+        "<div> <p style='color: #000'> character voice: </p> <input type='radio' name='voiceToggle' id='voiceOn' value='on' /><label for='voiceOn'> on </label> <input type='radio' name='voiceToggle' id='voiceOff' value='off' checked /><label for='voiceOff'> off </label> </div>");
+    
+    toggleVolume.appendTo($("#optionScreen"));
 	toggleTextSpeed.appendTo($("#optionScreen"));
-	
+	toggleVoice.appendTo($("#optionScreen"));
+    
 	var backButton = $("<button id='back' class='btn-primary'> go back </button>");
 	backButton.appendTo($("#optionScreen"))
 	$('#back').css({"text-align": "center"});
@@ -106,6 +112,7 @@ Screen.make = function(width, height){
 	var audioElement2 = $("<audio id='effects'></audio>");
 	audioElement2.appendTo($('#screen'));
 	
+    // add event listeners
 	var volController = document.getElementById('volControl');
 	volController.oninput = function(){
 		var audioVolume = document.getElementById('music');
@@ -117,6 +124,18 @@ Screen.make = function(width, height){
 		// we want the slider to get more negative (decrease in seconds) as we move left to right
 		SetScene.setDialogSpeed(textSpeedController.value * -1);
 	}
+    
+    var voiceToggleBtns = [$('#voiceOn'), $('#voiceOff')];
+    voiceToggleBtns.forEach((radioButton) => {
+        radioButton.on('input', function(){
+            const val = radioButton.val();
+            if(val === "on"){
+                voiceToggle = true;
+            }else{
+                voiceToggle = false;
+            }
+        });
+    });
 	
 }
 
@@ -133,7 +152,6 @@ Screen.routeScreen = function(option1, option1Name, option2, option2Name, option
 	//immediately. even if a function is placed in an array, it'll still get executed without the
 	//additional inner function.
 	return function(){
-	
 		$('#routeScreen').empty();
 		
 		//set update to true so spacebar won't be active
