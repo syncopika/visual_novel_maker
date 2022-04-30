@@ -31,14 +31,14 @@ SetScene.dialog = function(character, dialog){
     function typeDialog(index, textColor){
         //this one is for if the user just wants all the text shown at once. 
         if(textSpeed == 0){
-            $('#dialog').replaceWith('<h3 id="dialog" style="color: ' + textColor + ';"' + '>' + character + colon + dialog + '</h3>');
+            $('#dialog').replaceWith(`<h3 id="dialog" style="color: ${textColor};">${character}${colon}${dialog}</h3>`);
             return;
         }
         
         update = true;
         
         //this is for showing text at a given speed
-        $('#dialog').replaceWith('<h3 id="dialog" style="color: ' + textColor + ';"' + '>' + character + colon + dialog.substring(0, index) + '</h3>');
+        $('#dialog').replaceWith(`<h3 id="dialog" style="color: ${textColor};">${character}${colon}${dialog.substring(0, index)}</h3>`);
         if(index === dialog.length){
             update = false;
             return;
@@ -50,16 +50,15 @@ SetScene.dialog = function(character, dialog){
     }
     
     return function(){
-        const characterInfo = Game.characters[character];
-        const color = Game.characters[character].color;
+        const color = character ? Game.characters[character].color : "#000";
             
         $('#rowDialog').empty();
         
         //put just the name of character first (if character is specified)
-        $('#rowDialog').append('<h3 id="dialog" style="color: ' + color + ';"' + '>' + character + colon + '</h3>');
+        $('#rowDialog').append(`<h3 id="dialog" style="color: ${color};">${character}${colon}</h3>`);
         
         // https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis
-        if(voiceToggle){
+        if(character && voiceToggle){
             window.speechSynthesis.cancel();
             const speech = new SpeechSynthesisUtterance(dialog);
             speech.voice = Game.characters[character].voice;
@@ -107,7 +106,7 @@ SetScene.showCharacter = function(name, characterSrc, direction, animation){
                 $('#' + name).addClass('right');
             }
             // TODO: Add an option for CENTER?
-        }    
+        }
     }
 }
 

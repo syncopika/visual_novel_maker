@@ -5,12 +5,14 @@ Screen.setDialogBox("artAssets/dialogBar.png");
 
 //set up characters
 
-const voices = window.speechSynthesis.getVoices();
+// https://stackoverflow.com/questions/49506716/speechsynthesis-getvoices-returns-empty-array-on-windows
+var voices = window.speechSynthesis.getVoices();
+//console.log(voices);
 
-Game.character("cat", '#000');
+Game.character("cat", '#000', voices[0]);
 //Game.character("kitty", '#000');
 //Game.character("tabby", '#000');
-Game.character("deer", '#000');
+Game.character("deer", '#000', voices[2]);
 Game.character("rabbit", '#000');
 Game.character("crow", '#000');
 

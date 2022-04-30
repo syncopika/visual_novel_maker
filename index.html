@@ -38,14 +38,13 @@
                 <li id='game2'><a href='#'>mystery game</a></li>
             </ul>
             <br />
-            <br />
             <button class='options btn'>options menu</button>
             <br />
             <br />
             <p>n.c.h works c.2016 (<a href='https://github.com/syncopika/visual_novel_maker'>source</a>)</p>
         </div>
     </div>
-    
+
     <div class='spacer col-lg-1 col-md-12 col-sm-12'>
     </div>
 
@@ -57,8 +56,6 @@
         </div>
     </div>
     
-    <div class='spacer col-lg-2 col-md-12 col-sm-12'>
-    </div>
 </div>
 
 
@@ -68,23 +65,16 @@
 /**
 * Welcome to my 'visual novel' engine. I guess there could be other things this could be used for too. 
 * It's extremely basic. Please don't expect too much ^_^
-* Instructions: use spacebar to move to the next scene.
-
-/**
-* Make game here ======================================
-*
 **/
 
 //simple utility functions to get only script of selected game when clicked on
 //http://www.javascriptkit.com/javatutors/loadjavascriptcss2.shtml
 function newScriptNode(newFile){
-    
     var source = document.createElement('script');
     //source.setAttribute("type", "text/javascript");
     source.setAttribute("src", newFile);
     
     return source;
-
 }
 
 function getGame(oldFile, newFile){
@@ -113,12 +103,7 @@ $(document).ready(function(){
         // subtract 50 to ensure that the canvas will be within the width of the screen
         Screen.make(screenWidth-50, (screenWidth-50)*(7/9));
     }
-
-    /**
-     found an interesting problem. what if i want to name one of my characters Mr.Cat? any string with a period, or any non-alpha-num char
-     will cause problems when using that string as an ID. can u come up with a function maybe that parses the string, strips it of the special
-     char, and makes the ID like MrCat or something like that?
-    */
+    
     Screen.menuScreen("artAssets/mrcatsneighborhood.png", "col");
     Screen.setDialogBox("artAssets/dialogBar.png");
 

@@ -9,6 +9,21 @@
     position: relative;
 }
 
+#charScreen, #routeScreen, #menuScreen, #optionScreen {
+    position: absolute; 
+    z-index: 0; 
+    background-color: transparent;
+}
+
+#menuScreen, #optionScreen {
+    background-color: #fff;
+}
+
+#optionScreen {
+    z-index: -1;
+    opacity: 0;
+}
+
 #rowDialog{
     margin: 0 auto;
     border: #fff 1px dotted;
@@ -54,6 +69,14 @@ body {
 
 .row {
     text-align: center;
+    
+    /* override bootstrap's default, which seems to be -15px? */
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.btn {
+    border: 1px solid #ccc;
 }
 
 .btn:hover {
@@ -61,17 +84,28 @@ body {
 }
 
 .btn-primary {
-    background-color: #0199de;
-    color: #fff;
     padding: 5px 8px 5px 8px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    margin-top: 10%;
+    margin-top: 12%;
+}
+
+.routeOptionBtn {
+    margin-top: 12%;
+    border: 1px solid #000;
+    background-color: #337ab7;
+    color: #fff;
+    font-weight: bold;
+}
+
+.routeOptionBtn:hover {
+    background-color: #286090;
+    color: #fff;
 }
 
 #menu {
     text-align: center;
-    padding: 3% 1% 1% 1%;
+    padding: 3% 1% 1% 3%;
 }
 
 #menu li {

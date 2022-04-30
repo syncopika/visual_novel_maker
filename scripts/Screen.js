@@ -39,14 +39,9 @@ var currentRoute = "mainRoute"; //keep track of current route - start at main ro
 **/
 var canvas;
 var ctx;
-var offsetTop;
-var offsetLeft; 
-var charScreen, routeScreen, menuScreen, optionScreen;
 
-//make screen
 Screen.make = function(width, height){
     $('#rowDialog').css({"width": width});
-    $('#rowDialog').css({"margin-bottom": 50});
     
     //what about a progress bar, showing you how far in the game you are?
     //like a simple graph with nodes showing you what node you're on.
@@ -65,24 +60,22 @@ Screen.make = function(width, height){
     .css("width", width)
     .css("height", height);
     
-    offsetTop = $('#theScreen').position()["top"];
-    offsetLeft = $('#theScreen').position()["left"];
+    var offsetTop = $('#theScreen').position()["top"];
+    var offsetLeft = $('#theScreen').position()["left"];
     
-    //use charScreen to show characters. this will allow for easy animation, ideally
-    charScreen = $("<div id='charScreen'>" + "</div>");
-    charScreen.appendTo($('#rowScreen'))
-    .css({"position": "absolute", "top": offsetTop+"px", "left": offsetLeft+"px", "z-index":0, "background-color": "transparent", "width": width, "height": height});
+    // we need to set up 4 separate screens: 
+    // one for displaying just the characters (to allow for easy animation, ideally),
+    // one for displaying route options, one for the menu and one for options.
+    // these screens are overlayed on top of each other
+    var screens = ['char', 'route', 'menu', 'option'];
+    screens.forEach((screenName) => {
+        // note that each screenName will be part of an HTML id, which the css will depend on
+        var screen = $(`<div id='${screenName}Screen'></div>`);
+        screen.appendTo($('#rowScreen'))
+        .css({"top": `${offsetTop}px`, "left": `${offsetLeft}px`, "width": width, "height": height});
+    });
     
-    //make another screen to display route options
-    routeScreen = $("<div id='routeScreen'>" + "</div>");
-    routeScreen.appendTo($('#rowScreen'))
-    .css({"position": "absolute", "top": offsetTop+"px", "left": offsetLeft+"px", "z-index":0, "background-color": "transparent", "width": width, "height": height});
-    
-    menuScreen = $("<div id='menuScreen'></div>");
-    menuScreen.appendTo($('#rowScreen'))
-    .css({"position": "absolute", "top": offsetTop+"px", "left": offsetLeft+"px", "z-index":0, "background-color": "#fff", "width": width, "height": height});
-    
-    optionScreen = createOptionsMenu(width, height);
+    createOptionsMenu(width, height, offsetLeft, offsetTop);
     
     // audio element for music
     var audioElement = $("<audio id='music' preload='auto'></audio>");
@@ -95,11 +88,10 @@ Screen.make = function(width, height){
 }
 
 Screen.setDialogBox = function(imageSrc){
-    $('#rowDialog').css({"background-image": "url(" + imageSrc + ")"});
+    $('#rowDialog').css({"background-image": `url("${imageSrc}")`});
 }
 
-//only three options? 
-//TODO: fix up the options screen. change button arrangement.
+//only three options?
 //also, how to customise buttons??
 Screen.routeScreen = function(option1, option1Name, option2, option2Name, option3, option3Name){
     //another function wraps the code because we want this stuff to get executed when called, not
@@ -118,23 +110,21 @@ Screen.routeScreen = function(option1, option1Name, option2, option2Name, option
         
         //check if the choice button elements don't exist yet
         if(option1 !== "" && option2 !== "" && !$('.option1').length){
-            choice1 = $("<div class='row'><button class='btn-primary option1'>" + option1Name + "</button></div>");
-            choice2 =  $("<div class='row'><button class='btn-primary option2'>" + option2Name + "</button></div>");
+            choice1 = createChoiceButton(option1Name, 1);
+            choice2 =  createChoiceButton(option2Name, 2);
         }
         
         //option3 separated here because at the minimum, there should be 2 options. 3rd is optional.
         if(option3 !== "" && !$('.option3').length){
-            choice3 =  $("<div class='row'><button class='btn-primary option3'>" + option3Name + "</button></div>");
+            choice3 = createChoiceButton(option3Name, 3);
         }
         
-        //$('#routeScreen').css({"border" : "solid 1px #000"});
         choice1.appendTo($('#routeScreen'));
         choice2.appendTo($('#routeScreen'));
         choice3.appendTo($('#routeScreen'));
 
         //show screen by changing opacity
-        //good read on z-index: https://philipwalton.com/articles/what-no-one-told-you-about-z-index/
-        //might be relevant...
+        //good read on z-index, may be relevant: https://philipwalton.com/articles/what-no-one-told-you-about-z-index/
         $('#charScreen').css("opacity", .4);
         $('#theScreen').css("opacity", .4);
         $('#routeScreen').css({"opacity": 1, "z-index": 1});
@@ -185,12 +175,11 @@ Screen.closeOpScreen = function(){
     $('#routeScreen').css({"opacity": 0, "z-index": -1});
 }
 
-function createOptionsMenu(width, height){
-    var optionScreen = $("<div id='optionScreen'></div>");
-    optionScreen.appendTo($('#rowScreen'))
-    .css({"position": "absolute", "top": offsetTop+"px", "left": offsetLeft+"px", "z-index":-1, "opacity": 0, "background-color": "#fff", "width": width, "height": height});
-    
-    // create options page
+function createChoiceButton(choiceName, choiceNum){
+    return $(`<div class='row'><button class='btn routeOptionBtn option${choiceNum}'>${choiceName}</button></div>`);
+}
+
+function createOptionsMenu(width, height, offsetLeft, offsetTop){
     var optionHeader = $("<h1> options! </h1>");
     optionHeader.appendTo($('#optionScreen'));
     
@@ -265,5 +254,3 @@ $(document).on('click', ".options", function(){
         $("#optionScreen").css({"z-index": -1, "opacity": 0});
     });
 });
-
-

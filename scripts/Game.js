@@ -14,6 +14,8 @@ Game.character = function(character, color="#000", voice=null){
         Game.characters = {};
     }
     
+    console.log(voice);
+    
     if(voice === null){
         voice = window.speechSynthesis.getVoices()[0];
     }
@@ -71,6 +73,7 @@ Game.nextScene = function(){
     }
 }
 
+
 /**
 * initialize the game - i.e. allow traversal through array for each scene
 *
@@ -110,8 +113,16 @@ $(document).keydown(function(e){
     e.preventDefault();
 });
 
-//set new background AND music
-function newBGwithMusic(picture, music){
-    SetScene.background(picture);
-    SetScene.playAudio(music);
-}
+/* try resizing the overlayed screens if window resizes
+// https://stackoverflow.com/questions/9828831/jquery-on-window-resize
+window.onresize = function(){
+    var cvs = document.getElementById('theScreen').getBoundingClientRect();
+    var screens = ["charScreen", "routeScreen", "menuScreen", "optionScreen"];
+    console.log(cvs);
+    screens.forEach((screen) => {
+        //console.log(`${screen}; left: ${}; top:`);
+        // each screen is position: absolute
+        document.getElementById(screen).style.left = `${cvs.left}px`;
+        document.getElementById(screen).style.top = `${cvs.top}px`;
+    });
+}*/
