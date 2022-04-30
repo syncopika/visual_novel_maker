@@ -7,14 +7,12 @@
 //set new background image
 SetScene.background = function(imgSrcPath){
     return function(){
-        //we can assume the canvas has been initialized already when
-        //this function is called
+        //we can assume the canvas has been initialized already when this function is called
         canvas = document.getElementById('theScreen');
         ctx = canvas.getContext("2d");
 
         var image = new Image();
         image.src = imgSrcPath;
-
         image.onload = function(){
             ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
         }
@@ -60,7 +58,6 @@ SetScene.dialog = function(character, dialog){
         //put just the name of character first (if character is specified)
         $('#rowDialog').append('<h3 id="dialog" style="color: ' + color + ';"' + '>' + character + colon + '</h3>');
         
-        // TODO: depending on voice toggle (on or off), play voice
         // https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis
         if(voiceToggle){
             window.speechSynthesis.cancel();
@@ -192,6 +189,7 @@ function slideIn(name, end, direction){
     if(initial === -15){
         $('#' + name).css({'display': 'block'});
     }
+    
     //if the image finally reaches the endpoint, stop
     if(end <= initial){
         update = false;

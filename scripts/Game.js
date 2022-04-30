@@ -18,10 +18,7 @@ Game.character = function(character, color="#000", voice=null){
         voice = window.speechSynthesis.getVoices()[0];
     }
     
-    Game.characters[character] = {
-        color,
-        voice
-    };
+    Game.characters[character] = {color, voice};
 }
 
 //TODO: make a progress bar
@@ -35,16 +32,17 @@ Game.makeProgressBar = function(){
 **/
 Game.branch = function(routeName){
     return function(){
-        //update route
         currentRoute = routeName;
+        
         //make bookmark 0 and start at the beginning of the next route array
         bookmark = 0;
-        //make update false
+        
         update = false;
+        
         //move all characters off the screen
         //characters on screen have either a left or right class
-        //a new route may have "false" as the first index, indicating no change in background for
-        //the next scene.
+        //a new route may have "false" as the first index,
+        //indicating no change in background for the next scene.
         if(Routes[routeName][0] !== false){
             $(".left").each(function(){
                 $(this).css("display", "none");
@@ -58,6 +56,7 @@ Game.branch = function(routeName){
             //to skip the 'false' entry in the array
             bookmark = 1;
         }
+        
         Game.nextScene();
     }
 }

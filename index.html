@@ -15,116 +15,41 @@
     <script src='demos/catGame1.js'></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <style>
-#screen{
-    display: block;
-    margin: 0 auto;
-    text-align: center;
-}
-
-#rowScreen{
-    position: relative;
-}
-
-#rowDialog{
-    margin: 0 auto;
-    border: #fff 1px dotted;
-}
-
-.spacer {
-    height: 20px;
-}
-
-#footer{
-    height: 100px;
-}
-
-ul{
-    padding: 0;
-}
-
-#title{
-    text-align: center;
-}
-
-p, h2{
-    color: #fff;
-}
-
-h3{
-    font-family: monospace;
-}
-
-a:hover{
-    color: #fff;
-}
-
-body{
-    background-color: #36454f;
-    touch-action: manipulation;
-}
-
-.row{
-    text-align: center;
-}
-
-.btn-primary{
-    background-color: #0199de;
-    color: #fff;
-    padding: 5px 8px 5px 8px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-top: 10%;
-}
-
-#menu{
-    text-align: center;
-    margin-left: 1%;
-    margin-right: 1%;
-    border: #fff solid 1px;
-    border-radius: 5px;
-    padding: 0;
-}
-
-#menu li{
-    list-style-type: none;
-    color: #fff;
-}
 </style>
 
 <body>
 
 <div class='row'>
-    <div id='title'>
-        <h2> simple 'visual novel' thingy </h2>
-    </div>
-</div>
-
-<div class='row'>
     <div class='col-lg-2 col-md-12 col-sm-12'>
         <div id='menu'>
+            <div id='title'>
+                <h2> simple 'visual novel' thingy </h2>
+            </div>
             <p><b>instructions:</b> after selecting a game and clicking the start button, press spacebar (or double-tap if on mobile) to traverse the scenes.</p>
-            <p>to change games after selecting one, please refresh the page!</p>
+            <p>to change games after selecting one, please refresh the page first!</p>
             <p>note: there may be bugs!</p>
-            <h3 style='color: #fff'> choose a game: </h3>
+            <h3> choose a game: </h3>
             <ul>
                 <li id='game1'><a href='#'>mr.cat's neighborhood</a></li>
                 <li id='game2'><a href='#'>mystery game</a></li>
-                <br />
-                <li class='options'><a>option menu</a></li>
             </ul>
-            <p><a href='https://github.com/syncopika/visual_novel_maker'>source</a></p>
             <br />
-            <p>n.c.h works c.2016</p>
+            <br />
+            <button class='options btn'>options menu</button>
+            <br />
+            <br />
+            <p>n.c.h works c.2016 (<a href='https://github.com/syncopika/visual_novel_maker'>source</a>)</p>
         </div>
     </div>
     
     <div class='spacer col-lg-1 col-md-12 col-sm-12'>
     </div>
 
-    <div class='col-lg-7 col-md-12 col-sm-12' id='screen'>
+    <div class='col-lg-7 col-md-12 col-sm-12' id='screen'>  
         <div class='row' id='rowScreen'>
         </div>
 

@@ -82,65 +82,20 @@ Screen.make = function(width, height){
     menuScreen.appendTo($('#rowScreen'))
     .css({"position": "absolute", "top": offsetTop+"px", "left": offsetLeft+"px", "z-index":0, "background-color": "#fff", "width": width, "height": height});
     
-    optionScreen = $("<div id='optionScreen'></div>");
-    optionScreen.appendTo($('#rowScreen'))
-    .css({"position": "absolute", "top": offsetTop+"px", "left": offsetLeft+"px", "z-index":-1, "opacity": 0, "background-color": "#fff", "width": width, "height": height});
+    optionScreen = createOptionsMenu(width, height);
     
-    // create options page
-    var optionHeader = $("<h1> options! </h1>");
-    optionHeader.appendTo($('#optionScreen'));
-    
-    var toggleVolume = $("<input id='volControl' style='width: 70%; display: block; margin: 0 auto;' type='range' min='0' max='1' step='.1' value='.8' /> <p style='color: #000'> volume </p>");
-    var toggleTextSpeed = $("<input id='textControl' style='width: 70%; display: block; margin: 0 auto;' type='range' min='-80' max='-1' step='1' /> <p style='color: #000'> text speed </p>");
-    var toggleVoice = $(
-        "<div> <p style='color: #000'> character voice: </p> <input type='radio' name='voiceToggle' id='voiceOn' value='on' /><label for='voiceOn'> on </label> <input type='radio' name='voiceToggle' id='voiceOff' value='off' checked /><label for='voiceOff'> off </label> </div>");
-    
-    toggleVolume.appendTo($("#optionScreen"));
-    toggleTextSpeed.appendTo($("#optionScreen"));
-    toggleVoice.appendTo($("#optionScreen"));
-    
-    var backButton = $("<button id='back' class='btn-primary'> go back </button>");
-    backButton.appendTo($("#optionScreen"))
-    $('#back').css({"text-align": "center"});
-    
+    // audio element for music
     var audioElement = $("<audio id='music' preload='auto'></audio>");
     audioElement.appendTo($('#screen'));
     $('#music').prop("volume", .8);
     
-    //make an audio element to hold sound effects
+    // audio element for sound effects
     var audioElement2 = $("<audio id='effects'></audio>");
-    audioElement2.appendTo($('#screen'));
-    
-    // add event listeners
-    var volController = document.getElementById('volControl');
-    volController.oninput = function(){
-        var audioVolume = document.getElementById('music');
-        audioVolume.volume = parseFloat($('#volControl').val());
-    }
-    
-    var textSpeedController = document.getElementById('textControl');
-    textSpeedController.oninput = function(){
-        // we want the slider to get more negative (decrease in seconds) as we move left to right
-        SetScene.setDialogSpeed(textSpeedController.value * -1);
-    }
-    
-    var voiceToggleBtns = [$('#voiceOn'), $('#voiceOff')];
-    voiceToggleBtns.forEach((radioButton) => {
-        radioButton.on('input', function(){
-            var val = radioButton.val();
-            if(val === "on"){
-                voiceToggle = true;
-            }else{
-                voiceToggle = false;
-            }
-        });
-    });
-    
+    audioElement2.appendTo($('#screen')); 
 }
 
 Screen.setDialogBox = function(imageSrc){
-    $('#rowDialog').css("border", "none");
-    $('#rowDialog').css({"background-image": "url(" + imageSrc + ")", "background-repeat" : "no-repeat", "background-size": "100% 100%"});
+    $('#rowDialog').css({"background-image": "url(" + imageSrc + ")"});
 }
 
 //only three options? 
@@ -217,8 +172,7 @@ Screen.menuScreen = function(menuBG, style){
             //choice3.appendTo($('#right'));
         }
         
-        $('#left').css({"background-image": "url(" + menuBG + ")", "background-size": "100% 100%", "background-repeat": "no-repeat", "height": "100%"});
-        $('#right').css({'margin-left': '70%'});
+        $('#left').css({"background-image": "url(" + menuBG + ")"});
     
     //show the menu screen in a different way
     }else if(style === "row"){
@@ -229,6 +183,66 @@ Screen.closeOpScreen = function(){
     $('#charScreen').css("opacity", 1);
     $('#theScreen').css("opacity", 1);
     $('#routeScreen').css({"opacity": 0, "z-index": -1});
+}
+
+function createOptionsMenu(width, height){
+    var optionScreen = $("<div id='optionScreen'></div>");
+    optionScreen.appendTo($('#rowScreen'))
+    .css({"position": "absolute", "top": offsetTop+"px", "left": offsetLeft+"px", "z-index":-1, "opacity": 0, "background-color": "#fff", "width": width, "height": height});
+    
+    // create options page
+    var optionHeader = $("<h1> options! </h1>");
+    optionHeader.appendTo($('#optionScreen'));
+    
+    var toggleVolume = $(
+        "<div><label for='volControl'>volume:</label> <input id='volControl' type='range' min='0' max='1' step='.1' value='.8' /> <p id='volCtrlVal' class='optionVal'>0.8</p></div>"
+    );
+    
+    var toggleTextSpeed = $(
+        "<div><label for='textControl'>text speed:</label> <input id='textControl' type='range' min='-80' max='-1' step='1' /> <p id='txtCtrlVal' class='optionVal'>42</p></div>"
+    );
+    
+    var toggleVoice = $(
+        "<div><label for='voiceToggle'>character voice:</label> <br /><input type='radio' name='voiceToggle' id='voiceOn' value='on' /><label for='voiceOn'> on </label> <input type='radio' name='voiceToggle' id='voiceOff' value='off' checked /><label for='voiceOff'> off </label> </div>"
+    );
+    
+    toggleVolume.appendTo($("#optionScreen"));
+    $('<br />').appendTo($("#optionScreen"));
+    toggleTextSpeed.appendTo($("#optionScreen"));
+    $('<br />').appendTo($("#optionScreen"));
+    toggleVoice.appendTo($("#optionScreen"));
+    
+    // add event listeners
+    var volController = document.getElementById('volControl');
+    volController.oninput = function(){
+        var audioVolume = document.getElementById('music');
+        audioVolume.volume = parseFloat($('#volControl').val());
+        $('#volCtrlVal').text($('#volControl').val());
+    }
+    
+    var textSpeedController = document.getElementById('textControl');
+    textSpeedController.oninput = function(){
+        // we want the slider to get more negative (decrease in seconds) as we move left to right
+        SetScene.setDialogSpeed(textSpeedController.value * -1);
+        $('#txtCtrlVal').text(textSpeedController.value * -1);
+    }
+    
+    var voiceToggleBtns = [$('#voiceOn'), $('#voiceOff')];
+    voiceToggleBtns.forEach((radioButton) => {
+        radioButton.on('input', function(){
+            var val = radioButton.val();
+            if(val === "on"){
+                voiceToggle = true;
+            }else{
+                voiceToggle = false;
+            }
+        });
+    });
+    
+    var backButton = $("<button id='back' class='btn'> go back </button>");
+    backButton.appendTo($("#optionScreen"));
+    
+    return optionScreen;
 }
 
 //start the game on click!

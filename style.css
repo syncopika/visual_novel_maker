@@ -1,0 +1,116 @@
+/* default css */
+#screen{
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+}
+
+#rowScreen{
+    position: relative;
+}
+
+#rowDialog{
+    margin: 0 auto;
+    border: #fff 1px dotted;
+}
+
+.spacer {
+    height: 20px;
+}
+
+#footer{
+    height: 100px;
+}
+
+ul{
+    padding: 0;
+}
+
+#title{
+    text-align: center;
+}
+
+p, h2{
+    color: #fff;
+}
+
+h3{
+    font-family: Arial;
+    color: #fff;
+}
+
+a {
+    color: #ddd;
+}
+
+a:hover {
+    color: #fff;
+}
+
+body {
+    background-color: #36454f;
+    touch-action: manipulation;
+}
+
+.row {
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #ddd;
+}
+
+.btn-primary {
+    background-color: #0199de;
+    color: #fff;
+    padding: 5px 8px 5px 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 10%;
+}
+
+#menu {
+    text-align: center;
+    padding: 3% 1% 1% 1%;
+}
+
+#menu li {
+    list-style-type: none;
+    color: #fff;
+}
+
+#rowDialog {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border: none;
+}
+
+#left {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 100%; 
+}
+
+#right {
+    margin-left: 70%;
+}
+
+/* options screen */
+#volControl, #textControl {
+    width: 70%; 
+    display: inline-block; 
+    margin: 0 auto;    
+}
+
+.optionVal {
+    color: #000;
+    display: inline-block;
+}
+
+#optionScreen label {
+    padding: 4px;
+}
+
+#back {
+    margin-top: 5%;
+}
