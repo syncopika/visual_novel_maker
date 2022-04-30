@@ -3,76 +3,76 @@
 <html>
 
 <head>
-	<title> game name can go here </title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src='scripts/Screen.js'></script>
-	<script src='scripts/SetScene.js'></script>
-	<script src='scripts/Game.js'></script>
+    <title> game name can go here </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src='scripts/Screen.js'></script>
+    <script src='scripts/SetScene.js'></script>
+    <script src='scripts/Game.js'></script>
 </head>
 
 
 <style>
-	#screen{
-		display: block;
-		margin: 25px auto;
-		text-align: center;
-	}
-	
-	#rowDialog{
-		margin: 0 auto;
-		border: #000 1px dotted;
-	}
-	
-	h3{
-		/*this sets the font for the dialog.*/
-		font-family: monospace;
-	}
-	
-	.btn-primary{
-	background-color: #0199de;
-	color: #fff;
-	height: 30px;
-	width: 30%;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	margin-top: 15%;
+    #screen{
+        display: block;
+        margin: 25px auto;
+        text-align: center;
+    }
+    
+    #rowDialog{
+        margin: 0 auto;
+        border: #000 1px dotted;
+    }
+    
+    h3{
+        /*this sets the font for the dialog.*/
+        font-family: monospace;
+    }
+    
+    .btn-primary{
+    background-color: #0199de;
+    color: #fff;
+    height: 30px;
+    width: 30%;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 15%;
 }
 </style>
 
 
 <body>
 
-	<div id='screen'>
-	
-		<div class='row' id='rowScreen'>
-		</div>
-	
-		<div class='row' id='rowDialog'>
-		</div>
-	
-	</div>
+    <div id='screen'>
+    
+        <div class='row' id='rowScreen'>
+        </div>
+    
+        <div class='row' id='rowDialog'>
+        </div>
+    
+    </div>
 
 </body>
 
 
 <script>
-	$(document).ready(function(){
-		Screen.make(900, 700);
-		
-		Screen.menuScreen("", "col");
-		
-		Game.character("Nick", "#000");
-		
-		//make game here!
-		Routes["mainRoute"] = [
-			SetScene.dialog("Nick", "hey there!"),
-			SetScene.dialog("Nick", "thanks for trying this out!"),
-			SetScene.dialog("Nick", "Hope you have some fun!")
-		];
-	
-	});
-	
+    $(document).ready(function(){
+        Screen.make(900, 700);
+        
+        Screen.menuScreen("", "col");
+        
+        Game.character("Nick", "#000");
+        
+        //make game here!
+        Routes["mainRoute"] = [
+            SetScene.dialog("Nick", "hey there!"),
+            SetScene.dialog("Nick", "thanks for trying this out!"),
+            SetScene.dialog("Nick", "Hope you have some fun!")
+        ];
+    
+    });
+    
 </script>
 
 </html>

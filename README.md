@@ -68,7 +68,9 @@ Routes["mainRoute"] = [
     SetScene.showCharacter("hello", "world.png")
 ];    
 ```
-
+    
+I've also experimented a bit with integrating the Web Speech API so that character dialogue can be spoken and heard! Please see `demos/catGame1.js` for an example. At least on Chrome, the voices that can be used may not be immediately available so there's a bit of extra code to make sure the voices are available before allowing the game to proceed. I've also only tested with Chrome, Firefox and Edge so apologies(!) if you're trying this on a different broswer and it breaks.    
+    
 ## API documentation
 ### Screen 
 
@@ -100,9 +102,9 @@ Takes two parameters. *menuBackground* should be a string containing the path to
 ----------------------------
 ### Game
     
-*Game.<b>character</b>(character, color)*
+*Game.<b>character</b>(character, color='#000', voice=null)*
 
-Takes two parameters. *character* should be a string containing the name of a character, and *color* should be a string containing a specified color (i.e. in hex code, so something like '#000' for black). Characters should be set up before setting up routes. 
+Takes two parameters. *character* should be a string containing the name of a character, and *color* should be a string containing a specified color (i.e. in hex code, so something like '#000' for black). By default color will be '#000'. The third argument is voice, which should be a [SpeechSynthesisVoice object](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisVoice). By default voice will be null. Characters should be set up before setting up routes. 
 
 ---------------------------
 ### SetScene    
