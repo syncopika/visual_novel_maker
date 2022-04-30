@@ -19,11 +19,6 @@
     background-color: #fff;
 }
 
-#optionScreen {
-    z-index: -1;
-    opacity: 0;
-}
-
 #rowDialog{
     margin: 0 auto;
     border: #fff 1px dotted;
@@ -130,6 +125,15 @@ body {
 }
 
 /* options screen */
+#optionScreen {
+    z-index: -1;
+    opacity: 0;
+}
+
+#optionScreen label {
+    padding: 4px;
+}
+
 #volControl, #textControl {
     width: 70%; 
     display: inline-block; 
@@ -139,10 +143,6 @@ body {
 .optionVal {
     color: #000;
     display: inline-block;
-}
-
-#optionScreen label {
-    padding: 4px;
 }
 
 #back {

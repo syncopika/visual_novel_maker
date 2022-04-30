@@ -51,19 +51,24 @@ SetScene.dialog = function(character, dialog){
     
     return function(){
         const color = character ? Game.characters[character].color : "#000";
-            
+        
         $('#rowDialog').empty();
         
         //put just the name of character first (if character is specified)
         $('#rowDialog').append(`<h3 id="dialog" style="color: ${color};">${character}${colon}</h3>`);
         
         // https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis
-        if(character && voiceToggle){
-            window.speechSynthesis.cancel();
-            const speech = new SpeechSynthesisUtterance(dialog);
-            speech.voice = Game.characters[character].voice;
-            
-            window.speechSynthesis.speak(speech);
+        // TODO: currently we only allow a voice to play if there is a character associated with it.
+        // what if we want to play a voice and don't have a specific character, like in the mystery game demo?
+        if(voiceToggle && window.speechSynthesis && Game.characters[character]){
+            if(Game.characters[character].voice){
+                window.speechSynthesis.cancel();
+                
+                const speech = new SpeechSynthesisUtterance(dialog);
+                speech.voice = Game.characters[character].voice;
+                
+                window.speechSynthesis.speak(speech);
+            }
         }
         
         //then show dialog 

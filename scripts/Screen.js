@@ -146,6 +146,7 @@ Screen.routeScreen = function(option1, option1Name, option2, option2Name, option
     }
 }
 
+// used to display buttons you'd expect to see in a menu like start, save, load, etc.
 Screen.menuScreen = function(menuBG, style){
     if(style === "col"){
         //create the new elements if they don't exist

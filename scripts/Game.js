@@ -8,17 +8,14 @@
 
 //set up character
 Game.character = function(character, color="#000", voice=null){
-    //give character text a color
     //create another object within the game object called "characters", which will store info for all the characters
     if(Game.characters === undefined){
         Game.characters = {};
     }
     
-    console.log(voice);
-    
-    if(voice === null){
-        voice = window.speechSynthesis.getVoices()[0];
-    }
+    //if(voice === null && window.speechSynthesis){
+    //    voice = window.speechSynthesis.getVoices()[0];
+    //}
     
     Game.characters[character] = {color, voice};
 }
@@ -113,16 +110,15 @@ $(document).keydown(function(e){
     e.preventDefault();
 });
 
-/* try resizing the overlayed screens if window resizes
+// resize the overlayed screens if window resizes
 // https://stackoverflow.com/questions/9828831/jquery-on-window-resize
 window.onresize = function(){
     var cvs = document.getElementById('theScreen').getBoundingClientRect();
     var screens = ["charScreen", "routeScreen", "menuScreen", "optionScreen"];
-    console.log(cvs);
+    
     screens.forEach((screen) => {
-        //console.log(`${screen}; left: ${}; top:`);
         // each screen is position: absolute
-        document.getElementById(screen).style.left = `${cvs.left}px`;
-        document.getElementById(screen).style.top = `${cvs.top}px`;
+        document.getElementById(screen).style.left = $('#theScreen').position()["left"] + "px";
+        document.getElementById(screen).style.top = $('#theScreen').position()["top"] + "px";
     });
-}*/
+}

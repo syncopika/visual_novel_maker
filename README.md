@@ -68,7 +68,9 @@ Routes["mainRoute"] = [
     SetScene.showCharacter("hello", "world.png")
 ];    
 ```
-
+    
+I've also experimented a bit with integrating the Web Speech API so that character dialogue can be spoken and heard! Please see `demos/catGame1.js` for an example. At least on Chrome, the voices that can be used may not be immediately available so there's a bit of extra code to make sure the voices are available before allowing the game to proceed. I've also only tested with Chrome, Firefox and Edge so apologies(!) if you're trying this on a different broswer and it breaks.    
+    
 ## API documentation
 ### Screen 
 
